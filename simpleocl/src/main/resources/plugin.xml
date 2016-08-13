@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <extension point="com.change_vision.astah.ui.actionSets">
+      <actionSet
+            label="%action_set_label"
+            visible="true"
+            id="ocularium.simpleocl.actionSet">
+         <menu
+               id="simpleocl"
+               label="%menu_group"
+               path="tool/simpleocl">
+         </menu>
+         <action
+			   label="%menu_label"
+               icon="icons/sample.gif"
+               class="ocularium.TemplateAction"
+               tooltip="%menu_tooltip"
+               menubarPath="tool/simpleocl/"
+               id="simpleocl">
+         </action>
+     </actionSet>
+   </extension>
+</plugin>
