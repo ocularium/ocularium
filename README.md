@@ -11,6 +11,11 @@ The first example is from Warmer & Kleppe book: Royal & Loyal.
 There are two editions of the book with small differences, we adopted the second edition model.
 The first edition is available through a local library. We got the second edition model from the Web.
 
+More than one document use Royal & Loyal example model, among them:
+The Object Constraint Language First Edition by Jos Warmer and Anneke Kleppe
+The Object Constraint Language Second Edition by Jos Warmer and Anneke Kleppe
+Eclipse OCL Documentation by Christian Damus, Adolfo Sánchez-Barbudo Herrera, Axel Uhl, Edward Willink et alli
+
 Modeling Royal & Loyal, second edition, was a nice task to help us understand about the Astah tool.
 Astah template is a Java template. In order to model, we need primitive types that are platform independent.
 
