@@ -9,14 +9,14 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 
-public class TemplateAction implements IPluginActionDelegate {
+public class ExportOCLAction implements IPluginActionDelegate {
 
 	public Object run(IWindow window) throws UnExpectedException {
 	    try {
 	        AstahAPI api = AstahAPI.getAstahAPI();
 	        ProjectAccessor projectAccessor = api.getProjectAccessor();
 	        projectAccessor.getProject();
-	        JOptionPane.showMessageDialog(window.getParent(),"Hello");
+	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Action");
 	    } catch (ProjectNotFoundException e) {
 	        String message = "Project is not opened.Please open the project or create new project.";
 			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE); 

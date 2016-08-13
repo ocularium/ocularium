@@ -10,14 +10,23 @@
                label="%menu_group"
                path="tool/simpleocl">
          </menu>
-         <action
-			   label="%menu_label"
+                  <action
+			   label="%export_label"
                icon="icons/sample.gif"
-               class="ocularium.TemplateAction"
-               tooltip="%menu_tooltip"
+               class="ocularium.ImportOCLAction"
+               tooltip="%export_tooltip"
                menubarPath="tool/simpleocl/"
                id="simpleocl">
          </action>
+          <action
+			   label="%import_label"
+               icon="icons/sample.gif"
+               class="ocularium.ImportOCLAction"
+               tooltip="%import_tooltip"
+               menubarPath="tool/simpleocl/"
+               id="simpleocl">
+         </action>        
+
      </actionSet>
    </extension>
 </plugin>
