@@ -3,7 +3,8 @@ A simple tool for OCL constraints visualisation using Astah/JUDE.
 
 # Examples
 
-In order to test this tool, we need a valid model and constraints. The first example is from Warmer & Kleppe book: Royal & Loyal.
+In order to test our proposed tool, we need a valid model and constraints. 
+The first example is from Warmer & Kleppe book: Royal & Loyal.
 
 ## Royal & Loyal from Warmer & Kleppe
 
@@ -15,4 +16,6 @@ Astah template is a Java template. In order to model, we need primitive types th
 
 Object Management Group provide XMI files with primitive types and other Unified Modeling Language classifiers.
 The files are model revision dependent, we adopted the revision 2.5 (current as August 2016).
+
+We need to install a Astah plugin in order to import a XMI model. Astah has a built-in XML import and export capability with a tool specific schema.
 
