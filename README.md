@@ -17,7 +17,7 @@ The Object Constraint Language Second Edition by Jos Warmer and Anneke Kleppe
 Eclipse OCL Documentation by Christian Damus, Adolfo Sánchez-Barbudo Herrera, Axel Uhl, Edward Willink et alli
 
 Modeling Royal & Loyal, second edition, was a nice task to help us understand about the Astah tool.
-Astah template is a Java template. In order to model, we need primitive types that are platform independent.
+The default Astah template is a Java template. In order to model, we need primitive types that are platform independent.
 
 Object Management Group provide XMI files with primitive types and other Unified Modeling Language classifiers.
 The files are model revision dependent, we adopted the revision 2.5 (current as August 2016).
