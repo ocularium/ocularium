@@ -25,3 +25,9 @@ The files are model revision dependent, we adopted the revision 2.5 (current as 
 
 We need to install an Astah plugin in order to import a XMI model. Astah has a built-in XML import and export capability with a tool specific schema.
 
+# Similar Tools
+
+A number of modeling and programming tools support constraints, among them:
+- No Magic, MagicDraw, CameoOCL
+- Eclipse, Papyrus
+- Enterprise Architect
