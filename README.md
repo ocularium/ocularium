@@ -31,3 +31,4 @@ A number of modeling and programming tools support constraints, among them:
 - No Magic, MagicDraw, CameoOCL
 - Eclipse, Papyrus
 - Enterprise Architect
+- Poseidon
