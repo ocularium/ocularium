@@ -3,33 +3,35 @@ package ocularium;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IConstraint;
 import com.change_vision.jude.api.inf.model.IModel;
-//
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
-import com.change_vision.jude.api.inf.model.IClass;
-import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IPackage;
-import com.change_vision.jude.api.inf.project.ProjectAccessor;
-import com.change_vision.jude.api.inf.project.ProjectAccessorFactory;
-import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
-import com.change_vision.jude.api.inf.ui.IWindow;
 
-//
+/**
+ * 
+ * @author marco.mangan@pucrs.br
+ *
+ */
 public class Facade {
 
 	private IModel project;
 
+	/**
+	 * 
+	 * @param project
+	 */
 	public Facade(IModel project) {
 		super();
 		this.project = project;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<IClass> getConstrainedClasses() {
 		List<IClass> classeList = new ArrayList<IClass>();
 		try {
@@ -62,6 +64,8 @@ public class Facade {
 		}
 	}
 
+	/**
+	 */
 	public List<IConstraint> getConstraints() {
 		List<IConstraint> classeList = new ArrayList<IConstraint>();
 		try {
@@ -75,8 +79,7 @@ public class Facade {
 		}
 		return classeList;
 	}
-	
-	
+
 	// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
 	private void getAllConstraints(INamedElement element, List<IConstraint> classList)
 			throws ClassNotFoundException, ProjectNotFoundException {
@@ -96,5 +99,5 @@ public class Facade {
 				getAllConstraints(nestedClasses, classList);
 			}
 		}
-	}	
+	}
 }
