@@ -7,6 +7,7 @@
 		<plugin.install>true</plugin.install>
 		<astah.version>6.7</astah.version>
 		<astah.edition>all</astah.edition>
+		<astahPath>/Applications/astah professional/astah professional.app/Contents/Java</astahPath>
 	</properties>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ocularium</groupId>
