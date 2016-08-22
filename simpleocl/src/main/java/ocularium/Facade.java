@@ -1,5 +1,7 @@
 package ocularium;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,5 +101,25 @@ public class Facade {
 				getAllConstraints(nestedClasses, classList);
 			}
 		}
+	}
+
+	public void exportOCL(Writer output) throws IOException {
+		List<IConstraint> actual = getConstraints();
+		for (IConstraint iConstraint : actual) {
+					//"alias1 " +iConstraint.getAlias1()
+			//+ "alias2 " +iConstraint.getAlias2()
+			//+ "definition " +iConstraint.getDefinition()
+			//+ "id " +iConstraint.getId()
+			//+
+			//"name " +iConstraint.getName()
+			//+ "type mod " +iConstraint.getTypeModifier()
+			output.write(
+			 "context " 
+			+ iConstraint.getConstrainedElement()[0].toString()
+			+ " " 
+			+iConstraint.getSpecification()
+			);
+		}
+
 	}
 }
