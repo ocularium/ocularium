@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701">
+  <uml:Model name="omg-ocl-spec-minimal-company-inv-enough-employees" xmi:id="_XYPJgWgCEeaZxsc4LkbJtg">
+    <ownedRule constrainedElement="_XYRlwmgCEeaZxsc4LkbJtg" context="_XYPJgWgCEeaZxsc4LkbJtg" name="inv enoughEmployees:self.numberOfEmployees &gt; 50" xmi:id="_XYQ-sGgCEeaZxsc4LkbJtg" xmi:type="uml:Constraint">
+      <specification value="inv enoughEmployees:self.numberOfEmployees &gt; 50" xmi:id="_XYQ-sWgCEeaZxsc4LkbJtg" xmi:type="uml:LiteralString"/>
+    </ownedRule>
+    <packagedElement name="Boolean" xmi:id="_XYQ-smgCEeaZxsc4LkbJtg" xmi:type="uml:Class"/>
+    <packagedElement name="Integer" xmi:id="_XYQ-s2gCEeaZxsc4LkbJtg" xmi:type="uml:Class"/>
+    <packagedElement name="Real" xmi:id="_XYQ-tGgCEeaZxsc4LkbJtg" xmi:type="uml:Class"/>
+    <packagedElement name="String" xmi:id="_XYRlwGgCEeaZxsc4LkbJtg" xmi:type="uml:Class"/>
+    <packagedElement name="UnlimitedNatural" xmi:id="_XYRlwWgCEeaZxsc4LkbJtg" xmi:type="uml:Class"/>
+    <packagedElement name="Company" xmi:id="_XYRlwmgCEeaZxsc4LkbJtg" xmi:type="uml:Class">
+      <ownedAttribute name="name" type="_XYRlwGgCEeaZxsc4LkbJtg" visibility="private" xmi:id="_XYRlw2gCEeaZxsc4LkbJtg" xmi:type="uml:Property"/>
+      <ownedAttribute name="numberOfEmployees" type="_XYQ-s2gCEeaZxsc4LkbJtg" visibility="private" xmi:id="_XYRlxGgCEeaZxsc4LkbJtg" xmi:type="uml:Property"/>
+      <ownedOperation name="stockPrice" visibility="public" xmi:id="_XYRlxWgCEeaZxsc4LkbJtg" xmi:type="uml:Operation">
+        <ownedParameter direction="return" type="_XYQ-tGgCEeaZxsc4LkbJtg" xmi:id="_XYRlxmgCEeaZxsc4LkbJtg" xmi:type="uml:Parameter"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement name="PrimitiveTypes" xmi:id="_XYRlx2gCEeaZxsc4LkbJtg" xmi:type="uml:Package"/>
+  </uml:Model>
+</xmi:XMI>
