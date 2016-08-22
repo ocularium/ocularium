@@ -17,5 +17,11 @@ public class OculariumPanel extends JPanel {
 	
 	private JTable table;
 
+	public OculariumPanel() {
+		super();
+		table = new JTable();
+		table.setEnabled(true);
+	}
+
 	
 }
