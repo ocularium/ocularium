@@ -33,3 +33,4 @@ A number of modeling and programming tools support constraints, among them:
 - Enterprise Architect
 - Poseidon
 - ArgoUML, Dresden OCL
+- Kepple Octopus
