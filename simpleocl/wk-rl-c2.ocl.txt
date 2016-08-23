@@ -13,11 +13,23 @@ inv noAccounts: partners.deliveredServices->forAll( pointsEarned = 0 and pointsB
 context LoyaltyProgram
 inv firstLevel: levels->first().name = 'Silver'
 
+context levels
+ordered
+
+context getServices
+BODYCONDITION:body : partners.deliveredServices->asSet()
+
+context getServices
+BODYCONDITION:body : if partners->includes(pp) then pp.deliveredServices else Set endif
+
 context Customer
 inv ofAge: age >= 18
 
 context Customer
 inv sizesAgree: programs->size() = cards->select( valid = true )->size()
+
+context age
+post : age = age@pre + 1
 
 context ProgramPartner
 inv nrOfParticipants: numberOfCustomers = programs.participants->asSet()->size()
@@ -36,6 +48,21 @@ inv ofAge: owner.age >= 18
 
 context CustomerCard
 inv : let correctDate : Boolean = self.validFrom.isBefore(Date::now) and self.goodThru.isAfter(Date::now) in if valid then correctDate = false else correctDate = true endif
+
+context valid
+init : 0
+
+context printedName
+derive : owner.title.concat(' ').concat(owner.name)
+
+context upgradePointsEarned
+POSTCONDITION:post : calcPoints() = calcPoints@pre() + amount
+
+context points
+init : 0
+
+context isEmpty
+POSTCONDITION:post : result = (points = 0)
 
 context Membership
 inv correctCard: participants.cards->includes(self.card)

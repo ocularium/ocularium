@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Astah-Edition: all
 Astah-Version: 6.7
-Bnd-LastModified: 1471969544519
+Bnd-LastModified: 1471980961081
 Build-Jdk: 1.8.0_25
 Built-By: marco
 Bundle-Activator: ocularium.Activator

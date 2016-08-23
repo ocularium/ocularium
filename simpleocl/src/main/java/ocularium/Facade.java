@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
+import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IConstraint;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.INamedElement;
+import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IPackage;
 
 /**
@@ -58,9 +60,32 @@ public class Facade {
 		} else if (element instanceof IClass) {
 			//
 			IClass c = (IClass) element;
-			if (c.getConstraints().length > 0)
+			boolean constrained = false;
+			if (c.getConstraints().length > 0) {
+				constrained = true;
+			}
+			if (!constrained) {
+				for (IAttribute attribute : c.getAttributes()) {
+					if (attribute.getConstraints().length > 0) {
+						constrained = true;
+						break;
+					}
+				}
+			}
+			if (!constrained) {
+
+				for (IOperation operation : c.getOperations()) {
+					if (operation.getConstraints().length > 0) {
+						constrained = true;
+						break;
+					}
+				}
+			}
+			if (constrained) {
 				classList.add(c);
-			for (IClass nestedClasses : ((IClass) element).getNestedClasses()) {
+			}
+
+			for (IClass nestedClasses : c.getNestedClasses()) {
 				getAllClasses(nestedClasses, classList);
 			}
 		}
@@ -92,11 +117,37 @@ public class Facade {
 		} else if (element instanceof IClass) {
 			//
 			IClass c = (IClass) element;
+			
 			IConstraint[] ccs = c.getConstraints();
-			if (c.getConstraints().length > 0)
+			if (ccs.length > 0) {
 				for (IConstraint v : ccs) {
 					classList.add(v);
 				}
+			}
+			
+
+			for (IAttribute attribute : c.getAttributes()) {
+				IConstraint[] acs = attribute.getConstraints();
+
+				if (acs.length > 0) {
+					for (IConstraint v : acs) {
+						classList.add(v);
+					}
+		
+				}
+			}
+			for (IOperation operation : c.getOperations()) {
+				
+				IConstraint[] ocs = operation.getConstraints();
+
+			
+				if (ocs.length > 0) {
+					for (IConstraint v : ocs) {
+						classList.add(v);
+					}
+				}
+			}
+			
 			for (IClass nestedClasses : ((IClass) element).getNestedClasses()) {
 				getAllConstraints(nestedClasses, classList);
 			}
@@ -111,21 +162,15 @@ public class Facade {
 	public void exportOCL(Writer output) throws IOException {
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
-					//"alias1 " +iConstraint.getAlias1()
-			//+ "alias2 " +iConstraint.getAlias2()
-			//+ "definition " +iConstraint.getDefinition()
-			//+ "id " +iConstraint.getId()
-			//+
-			//"name " +iConstraint.getName()
-			//+ "type mod " +iConstraint.getTypeModifier()
-			output.write(
-			 "context " 
-			+ iConstraint.getConstrainedElement()[0].toString()
-			+ "\n" 
-			+iConstraint.getSpecification()
-			+ "\n" 
-			+ "\n" 
-			);
+			// "alias1 " +iConstraint.getAlias1()
+			// + "alias2 " +iConstraint.getAlias2()
+			// + "definition " +iConstraint.getDefinition()
+			// + "id " +iConstraint.getId()
+			// +
+			// "name " +iConstraint.getName()
+			// + "type mod " +iConstraint.getTypeModifier()
+			output.write("context " + iConstraint.getConstrainedElement()[0].toString() + "\n"
+					+ iConstraint.getSpecification() + "\n" + "\n");
 		}
 
 	}

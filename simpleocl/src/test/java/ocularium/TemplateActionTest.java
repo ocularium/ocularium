@@ -23,11 +23,12 @@ public class TemplateActionTest {
 
 	private static final String COMPANY_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
 	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
+	private static final String PERSON_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/omg-ocl-spec/omg-ocl-spec-minimal-person-has-spouse.asta";
 
 	@Test
 	public void testCompanyHasEnoughEmployeesGetConstrainedClasses() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		prjAccessor.open(COMPANY_FILE);
+		prjAccessor.open(COMPANY_FILE, true, false, true);
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		List<IClass> actual = f.getConstrainedClasses();
@@ -35,22 +36,34 @@ public class TemplateActionTest {
 		assertEquals(1, actual.size());
 		assertEquals("Company", actual.get(0).getName());
 	}
-
+	
 	@Test
-	public void testWkGetConstrainedClasses() throws Exception {
+	public void testPersonHasSpouseGetConstrainedClasses() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		prjAccessor.open(WK_C2_FILE);
+		prjAccessor.open(PERSON_FILE, true, false, true);
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		List<IClass> actual = f.getConstrainedClasses();
 		prjAccessor.close();
-		assertEquals(5, actual.size());
+		assertEquals(1, actual.size());
+		assertEquals("Person", actual.get(0).getName());
+	}	
+
+	@Test
+	public void testWkGetConstrainedClasses() throws Exception {
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_FILE, true, false, true);
+		IModel project = prjAccessor.getProject();
+		Facade f = new Facade(project);
+		List<IClass> actual = f.getConstrainedClasses();
+		prjAccessor.close();
+		assertEquals(7, actual.size());
 	}
 
 	@Test
 	public void testCompanyHasEnoughEmployeesGetConstraints() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		prjAccessor.open(COMPANY_FILE);
+		prjAccessor.open(COMPANY_FILE, true, false, true);
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		List<IConstraint> actual = f.getConstraints();
@@ -62,7 +75,7 @@ public class TemplateActionTest {
 	@Test
 	public void testCompanyHasEnoughEmployeesExportOclToString() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		prjAccessor.open(COMPANY_FILE);
+		prjAccessor.open(COMPANY_FILE, true, false, true);
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		Writer actual = new StringWriter();

@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.project.ProjectAccessorFactory;
 import com.change_vision.jude.api.inf.project.ProjectEvent;
@@ -43,7 +44,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView, Projec
 
   private void addProjectEventListener() {
     try {
-      ProjectAccessor projectAccessor = ProjectAccessorFactory.getProjectAccessor();
+      ProjectAccessor projectAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
       projectAccessor.addProjectEventListener(this);
     } catch (ClassNotFoundException e) {
       e.getMessage();
