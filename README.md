@@ -23,7 +23,7 @@ The default Astah template is a Java template. In order to model, we need primit
 Object Management Group provide XMI files with primitive types and other Unified Modeling Language classifiers.
 The files are model revision dependent, we adopted the revision 2.5 (current as August 2016).
 
-We need to install an Astah plugin in order to import a XMI model. Astah has a built-in XML import and export capability with a tool specific schema.
+We installed an Astah plugin in order to import a XMI model. Astah has a built-in XML import and export capability with a tool specific schema.
 
 # Similar Tools
 
