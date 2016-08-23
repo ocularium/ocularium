@@ -68,7 +68,7 @@ public class TemplateActionTest {
 		Writer actual = new StringWriter();
 		f.exportOCL(actual);
 		prjAccessor.close();
-		assertEquals("context Company inv enoughEmployees:self.numberOfEmployees > 50", actual.toString());
+		assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
 		actual.close();
 	}
 

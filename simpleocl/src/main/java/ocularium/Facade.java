@@ -103,6 +103,11 @@ public class Facade {
 		}
 	}
 
+	/**
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
 	public void exportOCL(Writer output) throws IOException {
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
@@ -116,8 +121,10 @@ public class Facade {
 			output.write(
 			 "context " 
 			+ iConstraint.getConstrainedElement()[0].toString()
-			+ " " 
+			+ "\n" 
 			+iConstraint.getSpecification()
+			+ "\n" 
+			+ "\n" 
 			);
 		}
 
