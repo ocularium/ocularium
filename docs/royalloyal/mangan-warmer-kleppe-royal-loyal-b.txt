@@ -5,7 +5,6 @@ init : 0
 context CustomerCard::valid 
 init : true
 
-
 context CustomerCard::printedName 
 derive : owner.title.concat(' ').concat(owner.name)
 
@@ -32,7 +31,7 @@ context CustomerCard
 inv checkDates: validFrom.isBefore(goodThru)
 
 —- 2.3.3
-c ontext CustomerCard 
+context CustomerCard 
 inv ofAge: owner.age >= 18
 
 — 2.3.4
@@ -96,7 +95,7 @@ context ProgramPartner
 inv totalPoints: deliveredServices.transactions.points->sum() < 10,000
 
 context ProgramPartner 
-inv totalPointsEarning: deliveredServices.transactions ->select( oclIsTypeOf( Earning ) ).points->sum() < 10,000
+ inv totalPointsEarning: deliveredServices.transactions ->select( oclIsTypeOf( Earning ) ).points->sum() < 10,000
 
 
 —- 2.7

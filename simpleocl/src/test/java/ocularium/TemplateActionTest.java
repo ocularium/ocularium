@@ -22,9 +22,10 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 public class TemplateActionTest {
 
 	private static final String COMPANY_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
+	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
 	@Test
-	public void testCompanyHasEnoughEmpolyeesGetConstrainedClasses() throws Exception {
+	public void testCompanyHasEnoughEmployeesGetConstrainedClasses() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(COMPANY_FILE);
 		IModel project = prjAccessor.getProject();
@@ -36,7 +37,18 @@ public class TemplateActionTest {
 	}
 
 	@Test
-	public void testCompanyHasEnoughEmpolyeesGetConstraints() throws Exception {
+	public void testWkGetConstrainedClasses() throws Exception {
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_FILE);
+		IModel project = prjAccessor.getProject();
+		Facade f = new Facade(project);
+		List<IClass> actual = f.getConstrainedClasses();
+		prjAccessor.close();
+		assertEquals(5, actual.size());
+	}
+
+	@Test
+	public void testCompanyHasEnoughEmployeesGetConstraints() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(COMPANY_FILE);
 		IModel project = prjAccessor.getProject();
@@ -46,10 +58,9 @@ public class TemplateActionTest {
 		assertEquals(1, actual.size());
 		assertEquals("inv enoughEmployees:self.numberOfEmployees > 50", actual.get(0).toString());
 	}
-	
-	
+
 	@Test
-	public void testCompanyHasEnoughEmpolyeesExportOclToString() throws Exception {
+	public void testCompanyHasEnoughEmployeesExportOclToString() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(COMPANY_FILE);
 		IModel project = prjAccessor.getProject();
@@ -58,6 +69,7 @@ public class TemplateActionTest {
 		f.exportOCL(actual);
 		prjAccessor.close();
 		assertEquals("context Company inv enoughEmployees:self.numberOfEmployees > 50", actual.toString());
-	actual.close();
-	}	
+		actual.close();
+	}
+
 }
