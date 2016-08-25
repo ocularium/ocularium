@@ -21,11 +21,12 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  * @author marco.mangan@pucrs.br
  *
  */
-public class TemplateActionTest {
+public class ExportActionTest {
+	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
-	private static final String COMPANY_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
-	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
-	private static final String PERSON_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/omg-ocl-spec/omg-ocl-spec-minimal-person-has-spouse.asta";
+	private static final String COMPANY_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
+	private static final String PERSON_SPOUSE_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-person-has-spouse.asta";
+	private static final String PERSON_INCOME_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-person-income.asta";
 
 	@Test
 	public void testCompanyHasEnoughEmployeesGetConstrainedClasses() throws Exception {
@@ -38,18 +39,30 @@ public class TemplateActionTest {
 		assertEquals(1, actual.size());
 		assertEquals("Company", actual.get(0).getName());
 	}
-	
+
 	@Test
 	public void testPersonHasSpouseGetConstrainedClasses() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		prjAccessor.open(PERSON_FILE, true, false, true);
+		prjAccessor.open(PERSON_SPOUSE_FILE, true, false, true);
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		List<IClass> actual = f.getConstrainedClasses();
 		prjAccessor.close();
 		assertEquals(1, actual.size());
 		assertEquals("Person", actual.get(0).getName());
-	}	
+	}
+
+	@Test
+	public void testPersonIncomeGetConstrainedClasses() throws Exception {
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(PERSON_INCOME_FILE, true, false, true);
+		IModel project = prjAccessor.getProject();
+		Facade f = new Facade(project);
+		List<IClass> actual = f.getConstrainedClasses();
+		prjAccessor.close();
+		assertEquals(1, actual.size());
+		assertEquals("Person", actual.get(0).getName());
+	}
 
 	@Test
 	public void testWkGetConstrainedClasses() throws Exception {
@@ -86,6 +99,7 @@ public class TemplateActionTest {
 		assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
 		actual.close();
 	}
+
 	@Test
 	public void testCompanyHasEnoughEmployeesExportOclToSameNameFile() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
@@ -95,7 +109,8 @@ public class TemplateActionTest {
 		Writer actual = new FileWriter(Facade.getOclProjectPath(prjAccessor));
 		f.exportOCL0(actual);
 		prjAccessor.close();
-		//assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
+		// assertEquals("context Company\ninv
+		// enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
 		actual.close();
 	}
 }

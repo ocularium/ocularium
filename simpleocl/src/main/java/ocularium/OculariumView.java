@@ -19,7 +19,6 @@ import javax.swing.JScrollPane;
 
 import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
-import com.change_vision.jude.api.inf.project.ProjectAccessorFactory;
 import com.change_vision.jude.api.inf.project.ProjectEvent;
 import com.change_vision.jude.api.inf.project.ProjectEventListener;
 import com.change_vision.jude.api.inf.ui.IPluginExtraTabView;
