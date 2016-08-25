@@ -1,5 +1,6 @@
 -- Made with ocularium
---context LoyaltyProgram
+--
+context LoyaltyProgram
 def : getServicesByLevel(levelName: String): Set(Service) = levels->select( name = levelName ).availableServices->asSet()
 
 context LoyaltyProgram
@@ -17,10 +18,10 @@ inv firstLevel: levels->first().name = 'Silver'
 context LoyaltyProgram::levels
 ordered
 
-context LoyaltyProgram::getServices
+context LoyaltyProgram::getServices(): Set
 BODYCONDITION:body : partners.deliveredServices->asSet()
 
-context LoyaltyProgram::getServices
+context LoyaltyProgram::getServices(): void
 BODYCONDITION:body : if partners->includes(pp) then pp.deliveredServices else Set endif
 
 context Customer
@@ -56,13 +57,13 @@ init : 0
 context CustomerCard::printedName
 derive : owner.title.concat(' ').concat(owner.name)
 
-context Service::upgradePointsEarned
+context Service::upgradePointsEarned(): void
 POSTCONDITION:post : calcPoints() = calcPoints@pre() + amount
 
 context LoyaltyAccount::points
 init : 0
 
-context LoyaltyAccount::isEmpty
+context LoyaltyAccount::isEmpty(): Boolean
 POSTCONDITION:post : result = (points = 0)
 
 context Membership

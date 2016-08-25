@@ -178,14 +178,22 @@ public class Facade {
 		for (IConstraint iConstraint : actual) {
 			output.write("context ");
 			IElement[] ces = iConstraint.getConstrainedElement();
+			
 			IElement e = ces[0];
-			if (e instanceof IAttribute || e instanceof IOperation) {
-				output.write(iConstraint.getConstrainedElement()[0].getOwner().toString());
+			if (e instanceof IAttribute) {
+				output.write(e.getOwner().toString());
 				output.write("::");
-				output.write(iConstraint.getConstrainedElement()[0].toString());
+				output.write(e.toString());
+			} else if (e instanceof IOperation) {
+				IOperation op = (IOperation)e;
+				String returnType = op.getReturnType().toString();
+				output.write(op.getOwner().toString());
+				output.write("::");
+				output.write(op.toString()+"()" + (returnType == null? "": ": " + returnType));
 			} else {
 				output.write(iConstraint.getConstrainedElement()[0].toString());
-			}
+			}			
+			
 			output.write("\n");
 			output.write(iConstraint.getSpecification());
 			output.write("\n");

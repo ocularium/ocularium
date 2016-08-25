@@ -3,7 +3,6 @@ package ocularium;
 import java.io.FileWriter;
 
 import com.change_vision.jude.api.inf.AstahAPI;
-import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
@@ -13,7 +12,7 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  *
  */
 public class DumpWKRLC2App {
-	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/docs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
+	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
 	public static void main(String[] args) throws Exception {
 		

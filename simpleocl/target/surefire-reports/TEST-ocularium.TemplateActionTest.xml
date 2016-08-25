@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="ocularium.TemplateActionTest" time="2.299" errors="0" skipped="0">
+<testsuite tests="6" failures="0" name="ocularium.TemplateActionTest" time="2.235" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
@@ -27,7 +27,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/marco/20162/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf5999998982341890574.tmp"/>
+    <property name="classworlds.conf" value="/Users/marco/20162/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf962952361936124135.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/marco/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -63,9 +63,10 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesGetConstrainedClasses" time="2.005"/>
-  <testcase classname="ocularium.TemplateActionTest" name="testPersonHasSpouseGetConstrainedClasses" time="0.068"/>
-  <testcase classname="ocularium.TemplateActionTest" name="testWkGetConstrainedClasses" time="0.187"/>
-  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesGetConstraints" time="0.018"/>
-  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesExportOclToString" time="0.021"/>
+  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesGetConstrainedClasses" time="1.939"/>
+  <testcase classname="ocularium.TemplateActionTest" name="testPersonHasSpouseGetConstrainedClasses" time="0.062"/>
+  <testcase classname="ocularium.TemplateActionTest" name="testWkGetConstrainedClasses" time="0.185"/>
+  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesGetConstraints" time="0.016"/>
+  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesExportOclToString" time="0.017"/>
+  <testcase classname="ocularium.TemplateActionTest" name="testCompanyHasEnoughEmployeesExportOclToSameNameFile" time="0.016"/>
 </testsuite>
