@@ -1,10 +1,14 @@
 package ocularium;
 
 
+import java.io.FileWriter;
+import java.io.Writer;
+
 import javax.swing.JOptionPane;
 
 import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
+import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
@@ -15,7 +19,15 @@ public class ExportOCLAction implements IPluginActionDelegate {
 	    try {
 	        AstahAPI api = AstahAPI.getAstahAPI();
 	        ProjectAccessor projectAccessor = api.getProjectAccessor();
-	        projectAccessor.getProject();
+	        IModel project = projectAccessor.getProject();
+			Facade f = new Facade(project);			
+
+			Writer actual = new FileWriter(Facade.getOclProjectPath(projectAccessor));
+			f.exportOCL(actual);
+			projectAccessor.close();	        
+	        
+	        
+	        
 	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Action");
 	    } catch (ProjectNotFoundException e) {
 	        String message = "Project is not opened.Please open the project or create new project.";

@@ -13,6 +13,7 @@ import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IPackage;
+import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
 /**
  * 
@@ -173,5 +174,9 @@ public class Facade {
 					+ iConstraint.getSpecification() + "\n" + "\n");
 		}
 
+	}
+	
+	public static String getOclProjectPath(ProjectAccessor prjAccessor) throws ProjectNotFoundException {
+		return prjAccessor.getProjectPath() + ".ocl";
 	}
 }

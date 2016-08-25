@@ -3,6 +3,7 @@ package ocularium;
 import java.io.FileWriter;
 
 import com.change_vision.jude.api.inf.AstahAPI;
+import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
@@ -16,12 +17,16 @@ public class ExportWKRLC2App {
 
 	public static void main(String[] args) throws Exception {
 		
-		System.out.println("Creating file...");
-		FileWriter fw = new FileWriter("wk-rl-c2.ocl.txt");
+
 		System.out.println("Opening project...");
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		prjAccessor.open(WK_C2_FILE);
+		prjAccessor.open(WK_C2_FILE, true, false, true);
+		
+		System.out.println("Creating file...");
+		FileWriter fw = new FileWriter(Facade.getOclProjectPath(prjAccessor));
+        System.out.println(prjAccessor.getProjectPath());
+
 		IModel project = prjAccessor.getProject();
 		System.out.println("Running facade...");
 
@@ -35,5 +40,7 @@ public class ExportWKRLC2App {
 
 
 	}
+
+
 
 }

@@ -3,6 +3,8 @@ package ocularium;
 import static org.junit.Assert.assertEquals;
 
 import java.io.StringWriter;
+import java.io.FileWriter;
+
 import java.io.Writer;
 import java.util.List;
 
@@ -84,5 +86,16 @@ public class TemplateActionTest {
 		assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
 		actual.close();
 	}
-
+	@Test
+	public void testCompanyHasEnoughEmployeesExportOclToSameNameFile() throws Exception {
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(COMPANY_FILE, true, false, true);
+		IModel project = prjAccessor.getProject();
+		Facade f = new Facade(project);
+		Writer actual = new FileWriter(Facade.getOclProjectPath(prjAccessor));
+		f.exportOCL(actual);
+		prjAccessor.close();
+		//assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
+		actual.close();
+	}
 }
