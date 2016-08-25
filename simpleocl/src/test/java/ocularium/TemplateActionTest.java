@@ -81,7 +81,7 @@ public class TemplateActionTest {
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		Writer actual = new StringWriter();
-		f.exportOCL(actual);
+		f.exportOCL0(actual);
 		prjAccessor.close();
 		assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
 		actual.close();
@@ -93,7 +93,7 @@ public class TemplateActionTest {
 		IModel project = prjAccessor.getProject();
 		Facade f = new Facade(project);
 		Writer actual = new FileWriter(Facade.getOclProjectPath(prjAccessor));
-		f.exportOCL(actual);
+		f.exportOCL0(actual);
 		prjAccessor.close();
 		//assertEquals("context Company\ninv enoughEmployees:self.numberOfEmployees > 50\n\n", actual.toString());
 		actual.close();

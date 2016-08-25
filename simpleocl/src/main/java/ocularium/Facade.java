@@ -155,12 +155,23 @@ public class Facade {
 		}
 	}
 
+	
 	/**
 	 * 
 	 * @param output
 	 * @throws IOException
 	 */
 	public void exportOCL(Writer output) throws IOException {
+		output.write("-- Made with ocularium");
+		output.write("--");		
+		exportOCL0(output);
+	}
+	/**
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
+	public void exportOCL0(Writer output) throws IOException {
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
 			// "alias1 " +iConstraint.getAlias1()
