@@ -3,12 +3,14 @@ package ocularium;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
 import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IConstraint;
+import com.change_vision.jude.api.inf.model.IElement;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IOperation;
@@ -118,14 +120,13 @@ public class Facade {
 		} else if (element instanceof IClass) {
 			//
 			IClass c = (IClass) element;
-			
+
 			IConstraint[] ccs = c.getConstraints();
 			if (ccs.length > 0) {
 				for (IConstraint v : ccs) {
 					classList.add(v);
 				}
 			}
-			
 
 			for (IAttribute attribute : c.getAttributes()) {
 				IConstraint[] acs = attribute.getConstraints();
@@ -134,28 +135,26 @@ public class Facade {
 					for (IConstraint v : acs) {
 						classList.add(v);
 					}
-		
+
 				}
 			}
 			for (IOperation operation : c.getOperations()) {
-				
+
 				IConstraint[] ocs = operation.getConstraints();
 
-			
 				if (ocs.length > 0) {
 					for (IConstraint v : ocs) {
 						classList.add(v);
 					}
 				}
 			}
-			
+
 			for (IClass nestedClasses : ((IClass) element).getNestedClasses()) {
 				getAllConstraints(nestedClasses, classList);
 			}
 		}
 	}
 
-	
 	/**
 	 * 
 	 * @param output
@@ -163,9 +162,12 @@ public class Facade {
 	 */
 	public void exportOCL(Writer output) throws IOException {
 		output.write("-- Made with ocularium");
-		output.write("--");		
+		output.write("\n");
+		output.write("--");
+		output.write("\n");
 		exportOCL0(output);
 	}
+
 	/**
 	 * 
 	 * @param output
@@ -174,20 +176,62 @@ public class Facade {
 	public void exportOCL0(Writer output) throws IOException {
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
-			// "alias1 " +iConstraint.getAlias1()
-			// + "alias2 " +iConstraint.getAlias2()
-			// + "definition " +iConstraint.getDefinition()
-			// + "id " +iConstraint.getId()
-			// +
-			// "name " +iConstraint.getName()
-			// + "type mod " +iConstraint.getTypeModifier()
-			output.write("context " + iConstraint.getConstrainedElement()[0].toString() + "\n"
-					+ iConstraint.getSpecification() + "\n" + "\n");
+			output.write("context ");
+			IElement[] ces = iConstraint.getConstrainedElement();
+			IElement e = ces[0];
+			if (e instanceof IAttribute || e instanceof IOperation) {
+				output.write(iConstraint.getConstrainedElement()[0].getOwner().toString());
+				output.write("::");
+				output.write(iConstraint.getConstrainedElement()[0].toString());
+			} else {
+				output.write(iConstraint.getConstrainedElement()[0].toString());
+			}
+			output.write("\n");
+			output.write(iConstraint.getSpecification());
+			output.write("\n");
+			output.write("\n");
+		}
+	}
+
+	public void dumpOCL(Writer output) throws IOException {
+		List<IConstraint> actual = getConstraints();
+		for (IConstraint iConstraint : actual) {
+			output.write("\n             alias1: [" + iConstraint.getAlias1() + "]");
+			output.write("\n             alias2: [" + iConstraint.getAlias2() + "]");
+			output.write("\n         definition: [" + iConstraint.getDefinition() + "]");
+			// name
+			// nameSpace
+			output.write("\n                 id: [" + iConstraint.getId() + "]");
+			output.write("\n               name: [" + iConstraint.getName() + "]");
+			output.write("\n      specification: [" + iConstraint.getSpecification() + "]");
+			// tagged value
+			output.write("\n           type mod: [" + iConstraint.getTypeModifier() + "]");
+			//
+			// output.write("\n client dep: [" +
+			// iConstraint.getClientDependencies().toString()+ "]");
+			output.write("\n           comments: [" + Arrays.toString(iConstraint.getComments()) + "]");
+			output.write("\nconstrained element: [" + Arrays.toString(iConstraint.getConstrainedElement()) + "]");
+			output.write("\n        constraints: [" + Arrays.toString(iConstraint.getConstraints()) + "]");
+
+			output.write("\n");
+
 		}
 
 	}
-	
+
 	public static String getOclProjectPath(ProjectAccessor prjAccessor) throws ProjectNotFoundException {
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
+
+	// private String getFullName(IClass iClass) {
+	// StringBuffer sb = new StringBuffer();
+	// IElement owner = iClass.getOwner();
+	// while (owner != null && owner instanceof INamedElement &&
+	// owner.getOwner() != null) {
+	// sb.insert(0, ((INamedElement) owner).getName() + "::");
+	// owner = owner.getOwner();
+	// }
+	// sb.append(iClass.getName());
+	// return sb.toString();
+	// }
 }
