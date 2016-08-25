@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701">
+  <uml:Model name="omg-ocl-spec-minimal-person-income" xmi:id="_AJPD8GrOEeaXZLyMAzzO8g">
+    <packagedElement name="Boolean" xmi:id="_AJPrAGrOEeaXZLyMAzzO8g" xmi:type="uml:Class"/>
+    <packagedElement name="Integer" xmi:id="_AJPrAWrOEeaXZLyMAzzO8g" xmi:type="uml:Class"/>
+    <packagedElement name="Real" xmi:id="_AJPrAmrOEeaXZLyMAzzO8g" xmi:type="uml:Class"/>
+    <packagedElement name="String" xmi:id="_AJPrA2rOEeaXZLyMAzzO8g" xmi:type="uml:Class"/>
+    <packagedElement name="UnlimitedNatural" xmi:id="_AJPrBGrOEeaXZLyMAzzO8g" xmi:type="uml:Class"/>
+    <packagedElement name="Person" xmi:id="_AJPrBWrOEeaXZLyMAzzO8g" xmi:type="uml:Class">
+      <ownedAttribute name="age" type="_AJPrAWrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrBmrOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="isMarried" type="_AJPrAGrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrB2rOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="isUmemployed" type="_AJPrAGrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrCGrOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="birthDate" type="_AJPrFWrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrCWrOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="firstName" type="_AJPrFWrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrCmrOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="lastName" type="_AJPrFWrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrC2rOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="gender" type="_AJPrFWrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrDGrOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedAttribute name="income" type="_AJPrFWrOEeaXZLyMAzzO8g" visibility="private" xmi:id="_AJPrDWrOEeaXZLyMAzzO8g" xmi:type="uml:Property"/>
+      <ownedOperation name="income" postcondition="_AJPrD2rOEeaXZLyMAzzO8g" visibility="public" xmi:id="_AJPrDmrOEeaXZLyMAzzO8g" xmi:type="uml:Operation">
+        <ownedRule context="_AJPrDmrOEeaXZLyMAzzO8g" name="post: result = 5000" xmi:id="_AJPrD2rOEeaXZLyMAzzO8g" xmi:type="uml:Constraint">
+          <specification value="post: result = 5000" xmi:id="_AJPrEGrOEeaXZLyMAzzO8g" xmi:type="uml:LiteralString"/>
+        </ownedRule>
+        <ownedParameter direction="return" type="_AJPrFmrOEeaXZLyMAzzO8g" xmi:id="_AJPrEWrOEeaXZLyMAzzO8g" xmi:type="uml:Parameter"/>
+      </ownedOperation>
+      <ownedOperation name="getCurrentSpouse" visibility="public" xmi:id="_AJPrEmrOEeaXZLyMAzzO8g" xmi:type="uml:Operation">
+        <ownedParameter direction="return" type="_AJPrFmrOEeaXZLyMAzzO8g" xmi:id="_AJPrE2rOEeaXZLyMAzzO8g" xmi:type="uml:Parameter"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement name="PrimitiveTypes" xmi:id="_AJPrFGrOEeaXZLyMAzzO8g" xmi:type="uml:Package">
+      <packagedElement name="int" xmi:id="_AJPrFWrOEeaXZLyMAzzO8g" xmi:type="uml:PrimitiveType"/>
+      <packagedElement name="void" xmi:id="_AJPrFmrOEeaXZLyMAzzO8g" xmi:type="uml:PrimitiveType"/>
+    </packagedElement>
+  </uml:Model>
+</xmi:XMI>

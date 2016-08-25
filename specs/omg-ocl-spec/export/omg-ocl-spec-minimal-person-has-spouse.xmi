@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701">
+  <uml:Model name="omg-ocl-spec-minimal-person-has-spouse" xmi:id="_SGbz4WrPEeaHdbM1GhWWPg">
+    <packagedElement name="Boolean" xmi:id="_SGca8GrPEeaHdbM1GhWWPg" xmi:type="uml:Class"/>
+    <packagedElement name="Integer" xmi:id="_SGca8WrPEeaHdbM1GhWWPg" xmi:type="uml:Class"/>
+    <packagedElement name="Real" xmi:id="_SGca8mrPEeaHdbM1GhWWPg" xmi:type="uml:Class"/>
+    <packagedElement name="String" xmi:id="_SGca82rPEeaHdbM1GhWWPg" xmi:type="uml:Class"/>
+    <packagedElement name="UnlimitedNatural" xmi:id="_SGca9GrPEeaHdbM1GhWWPg" xmi:type="uml:Class"/>
+    <packagedElement name="Person" xmi:id="_SGca9WrPEeaHdbM1GhWWPg" xmi:type="uml:Class">
+      <ownedAttribute name="age" type="_SGca8WrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca9mrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="isMarried" type="_SGca8GrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca92rPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="isUmemployed" type="_SGca8GrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca-GrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="birthDate" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca-WrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="firstName" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca-mrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="lastName" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca-2rPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="gender" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca_GrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="income" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca_WrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute association="_SGdCCGrPEeaHdbM1GhWWPg" name="" type="_SGca9WrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca_mrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute association="_SGdCCGrPEeaHdbM1GhWWPg" name="" type="_SGca9WrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGca_2rPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedOperation name="income" visibility="public" xmi:id="_SGdCAGrPEeaHdbM1GhWWPg" xmi:type="uml:Operation">
+        <ownedParameter direction="return" type="_SGdCDWrPEeaHdbM1GhWWPg" xmi:id="_SGdCAWrPEeaHdbM1GhWWPg" xmi:type="uml:Parameter"/>
+      </ownedOperation>
+      <ownedOperation bodyCondition="_SGdCBWrPEeaHdbM1GhWWPg" name="getCurrentSpouse" precondition="_SGdCA2rPEeaHdbM1GhWWPg" visibility="public" xmi:id="_SGdCAmrPEeaHdbM1GhWWPg" xmi:type="uml:Operation">
+        <ownedRule context="_SGdCAmrPEeaHdbM1GhWWPg" name="pre: self.isMarried = true" xmi:id="_SGdCA2rPEeaHdbM1GhWWPg" xmi:type="uml:Constraint">
+          <specification value="pre: self.isMarried = true" xmi:id="_SGdCBGrPEeaHdbM1GhWWPg" xmi:type="uml:LiteralString"/>
+        </ownedRule>
+        <ownedRule context="_SGdCAmrPEeaHdbM1GhWWPg" name="body: self.mariages-&gt;select( m | m.ended = false ).spouse" xmi:id="_SGdCBWrPEeaHdbM1GhWWPg" xmi:type="uml:Constraint">
+          <specification value="body: self.mariages-&gt;select( m | m.ended = false ).spouse" xmi:id="_SGdCBmrPEeaHdbM1GhWWPg" xmi:type="uml:LiteralString"/>
+        </ownedRule>
+        <ownedParameter direction="return" type="_SGdCDWrPEeaHdbM1GhWWPg" xmi:id="_SGdCB2rPEeaHdbM1GhWWPg" xmi:type="uml:Parameter"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement memberEnd="_SGca_mrPEeaHdbM1GhWWPg _SGca_2rPEeaHdbM1GhWWPg" name="Marriage" xmi:id="_SGdCCGrPEeaHdbM1GhWWPg" xmi:type="uml:AssociationClass">
+      <ownedAttribute name="place" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGdCCWrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+      <ownedAttribute name="date" type="_SGdCDGrPEeaHdbM1GhWWPg" visibility="private" xmi:id="_SGdCCmrPEeaHdbM1GhWWPg" xmi:type="uml:Property"/>
+    </packagedElement>
+    <packagedElement name="PrimitiveTypes" xmi:id="_SGdCC2rPEeaHdbM1GhWWPg" xmi:type="uml:Package">
+      <packagedElement name="int" xmi:id="_SGdCDGrPEeaHdbM1GhWWPg" xmi:type="uml:PrimitiveType"/>
+      <packagedElement name="void" xmi:id="_SGdCDWrPEeaHdbM1GhWWPg" xmi:type="uml:PrimitiveType"/>
+    </packagedElement>
+  </uml:Model>
+</xmi:XMI>
