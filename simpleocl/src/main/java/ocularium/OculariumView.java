@@ -24,6 +24,11 @@ import com.change_vision.jude.api.inf.project.ProjectEventListener;
 import com.change_vision.jude.api.inf.ui.IPluginExtraTabView;
 import com.change_vision.jude.api.inf.ui.ISelectionListener;
 
+/**
+ * 
+ * @author marco.mangan@pucrs.br
+ *
+ */
 public class OculariumView extends JPanel implements IPluginExtraTabView, ProjectEventListener {
 
     /**

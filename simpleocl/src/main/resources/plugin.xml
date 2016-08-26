@@ -13,7 +13,7 @@
                   <action
 			   label="%export_label"
                icon="icons/sample.gif"
-               class="ocularium.ImportOCLAction"
+               class="ocularium.ExportOCLAction"
                tooltip="%export_tooltip"
                menubarPath="tool/simpleocl/"
                id="simpleocl">

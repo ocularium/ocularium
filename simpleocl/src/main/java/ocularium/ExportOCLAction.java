@@ -13,6 +13,11 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 
+/**
+ * 
+ * @author marco.mangan@pucrs.br
+ *
+ */
 public class ExportOCLAction implements IPluginActionDelegate {
 
 	public Object run(IWindow window) throws UnExpectedException {
@@ -25,9 +30,7 @@ public class ExportOCLAction implements IPluginActionDelegate {
 			Writer actual = new FileWriter(Facade.getOclProjectPath(projectAccessor));
 			f.exportOCL(actual);
 			projectAccessor.close();	        
-	        
-	        
-	        
+
 	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Action");
 	    } catch (ProjectNotFoundException e) {
 	        String message = "Project is not opened.Please open the project or create new project.";

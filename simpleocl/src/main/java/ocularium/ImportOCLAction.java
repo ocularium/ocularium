@@ -9,6 +9,11 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 
+/**
+ * 
+ * @author marco.mangan@pucrs.br
+ *
+ */
 public class ImportOCLAction implements IPluginActionDelegate {
 
 	public Object run(IWindow window) throws UnExpectedException {
