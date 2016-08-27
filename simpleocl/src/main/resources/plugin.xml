@@ -10,21 +10,21 @@
                label="%menu_group"
                path="tool/simpleocl">
          </menu>
-                  <action
+         <action
 			   label="%export_label"
                icon="icons/sample.gif"
-               class="ocularium.ExportOCLAction"
+               class="ocularium.actions.ExportOCLAction"
                tooltip="%export_tooltip"
                menubarPath="tool/simpleocl/"
-               id="simpleocl">
+               id="simpleoclexport">
          </action>
           <action
 			   label="%import_label"
                icon="icons/sample.gif"
-               class="ocularium.ImportOCLAction"
+               class="ocularium.actions.ImportOCLAction"
                tooltip="%import_tooltip"
                menubarPath="tool/simpleocl/"
-               id="simpleocl">
+               id="simpleoclimport">
          </action>        
 
      </actionSet>

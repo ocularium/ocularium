@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="ocularium.ExportActionTest" time="2.506" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="ocularium.ExportActionTest" time="1.959" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
@@ -27,7 +27,7 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Users/marco/20162/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf4868253667242004776.tmp"/>
+    <property name="classworlds.conf" value="/Users/marco/20162/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf954165370598750326.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/marco/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -63,11 +63,11 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesGetConstrainedClasses" time="2.17"/>
-  <testcase classname="ocularium.ExportActionTest" name="testPersonHasSpouseGetConstrainedClasses" time="0.062"/>
-  <testcase classname="ocularium.ExportActionTest" name="testPersonIncomeGetConstrainedClasses" time="0.03"/>
-  <testcase classname="ocularium.ExportActionTest" name="testWkGetConstrainedClasses" time="0.194"/>
-  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesGetConstraints" time="0.017"/>
-  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesExportOclToString" time="0.016"/>
-  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesExportOclToSameNameFile" time="0.017"/>
+  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesGetConstrainedClasses" time="1.676"/>
+  <testcase classname="ocularium.ExportActionTest" name="testPersonHasSpouseGetConstrainedClasses" time="0.055"/>
+  <testcase classname="ocularium.ExportActionTest" name="testPersonIncomeGetConstrainedClasses" time="0.025"/>
+  <testcase classname="ocularium.ExportActionTest" name="testWkGetConstrainedClasses" time="0.157"/>
+  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesGetConstraints" time="0.016"/>
+  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesExportOclToString" time="0.015"/>
+  <testcase classname="ocularium.ExportActionTest" name="testCompanyHasEnoughEmployeesExportOclToSameNameFile" time="0.015"/>
 </testsuite>

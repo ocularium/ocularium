@@ -1,4 +1,4 @@
-package ocularium;
+package ocularium.actions;
 
 
 import javax.swing.JOptionPane;

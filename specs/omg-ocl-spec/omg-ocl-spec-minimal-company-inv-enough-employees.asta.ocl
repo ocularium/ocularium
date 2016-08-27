@@ -1,3 +1,5 @@
+-- Made with ocularium
+--
 context Company
 inv enoughEmployees:self.numberOfEmployees > 50
 

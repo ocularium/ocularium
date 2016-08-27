@@ -22,7 +22,7 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  * @author marco.mangan@pucrs.br
  *
  */
-public class Facade {
+public class OculariumFacade {
 
 	private IModel project;
 
@@ -30,7 +30,7 @@ public class Facade {
 	 * 
 	 * @param project
 	 */
-	public Facade(IModel project) {
+	public OculariumFacade(IModel project) {
 		super();
 		this.project = project;
 	}

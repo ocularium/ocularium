@@ -1,10 +1,12 @@
-package ocularium;
+package ocularium.apps;
 
 import java.io.FileWriter;
 
 import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
+
+import ocularium.OculariumFacade;
 
 /**
  * Simple exploratory test application to checkout export results from W&K R&L, Second Edition, Chapter 2.
@@ -23,13 +25,13 @@ public class ExportWKRLC2App {
 		prjAccessor.open(WK_C2_FILE, true, false, true);
 		
 		System.out.println("Creating file...");
-		FileWriter fw = new FileWriter(Facade.getOclProjectPath(prjAccessor));
+		FileWriter fw = new FileWriter(OculariumFacade.getOclProjectPath(prjAccessor));
         System.out.println(prjAccessor.getProjectPath());
 
 		IModel project = prjAccessor.getProject();
 		System.out.println("Running facade...");
 
-		Facade f = new Facade(project);
+		OculariumFacade f = new OculariumFacade(project);
 		System.out.println("Exporting constraints...");
 		
 		f.exportOCL(fw);

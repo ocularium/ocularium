@@ -1,4 +1,4 @@
-package ocularium;
+package ocularium.actions;
 
 
 import java.io.FileWriter;
@@ -13,6 +13,8 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 
+import ocularium.OculariumFacade;
+
 /**
  * 
  * @author marco.mangan@pucrs.br
@@ -25,11 +27,12 @@ public class ExportOCLAction implements IPluginActionDelegate {
 	        AstahAPI api = AstahAPI.getAstahAPI();
 	        ProjectAccessor projectAccessor = api.getProjectAccessor();
 	        IModel project = projectAccessor.getProject();
-			Facade f = new Facade(project);			
+			OculariumFacade f = new OculariumFacade(project);			
 
-			Writer actual = new FileWriter(Facade.getOclProjectPath(projectAccessor));
+			Writer actual = new FileWriter(OculariumFacade.getOclProjectPath(projectAccessor));
 			f.exportOCL(actual);
-			projectAccessor.close();	        
+			projectAccessor.close();	
+			actual.close();
 
 	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Action");
 	    } catch (ProjectNotFoundException e) {
