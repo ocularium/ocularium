@@ -47,6 +47,7 @@ public class OculariumFacade {
 	 */
 	public List<IClass> getConstrainedClasses() {
 		assert project != null;
+		
 		List<IClass> classList = new ArrayList<IClass>();
 		try {
 			getAllClasses(project, classList);
@@ -64,6 +65,7 @@ public class OculariumFacade {
 	private void getAllClasses(INamedElement element, List<IClass> classList)
 			throws ClassNotFoundException, ProjectNotFoundException {
 		assert project != null;
+		
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
 				getAllClasses(ownedNamedElement, classList);
@@ -92,7 +94,7 @@ public class OculariumFacade {
 					}
 				}
 			}
-			
+
 			if (constrained) {
 				classList.add(c);
 			}
@@ -107,6 +109,7 @@ public class OculariumFacade {
 	 */
 	public List<IConstraint> getConstraints() {
 		assert project != null;
+		
 		List<IConstraint> classeList = new ArrayList<IConstraint>();
 		try {
 			getAllConstraints(project, classeList);
@@ -126,6 +129,7 @@ public class OculariumFacade {
 		assert project != null;
 		assert element != null;
 		assert constraintList != null;
+		
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
 				getAllConstraints(ownedNamedElement, constraintList);
@@ -176,10 +180,12 @@ public class OculariumFacade {
 	public void exportOCL(Writer output) throws IOException {
 		assert project != null;
 
-		output.write("-- Made with ocularium");
+		output.write("-- Made with ocularium (http://ocularium.github.io/ocularium)");
 		output.write("\n");
 		output.write("--");
 		output.write("\n");
+		output.write("\n");
+		
 		exportOCL0(output);
 	}
 
@@ -190,6 +196,7 @@ public class OculariumFacade {
 	 */
 	public void exportOCL0(Writer output) throws IOException {
 		assert project != null;
+		
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
 			output.write("context ");
@@ -208,14 +215,21 @@ public class OculariumFacade {
 				output.write(op.toString());
 				output.write("(");
 				IParameter[] ps = op.getParameters();
-				for (IParameter iParameter : ps) {
 
+				boolean firstParam = true;
+
+				for (IParameter iParameter : ps) {
+					if (!firstParam) {
+						output.write(", ");
+
+					}
 					String paramName = iParameter.getName().toString();
 					String paramType = iParameter.getType().toString();
 					output.write(paramName == null ? "" : paramName);
 					output.write(paramType == null ? "" : ": " + paramType);
 
 				}
+
 				output.write(")");
 
 				String returnType = op.getReturnType().toString();
@@ -226,7 +240,14 @@ public class OculariumFacade {
 			}
 
 			output.write("\n");
-			output.write(iConstraint.getSpecification());
+			String spec = iConstraint.getSpecification();
+			if (spec.startsWith("BODYCONDITION:")) {
+				spec = spec.substring("BODYCONDITION:".length());
+			} else if (spec.startsWith("POSTCONDITION:")) {
+				spec = spec.substring("POSTCONDITION:".length());
+			}
+
+			output.write(spec);
 			output.write("\n");
 			output.write("\n");
 		}
@@ -235,6 +256,7 @@ public class OculariumFacade {
 	public void dumpOCL(Writer output) throws IOException {
 		assert output != null;
 		assert project != null;
+		
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
 			output.write("\n             alias1: [" + iConstraint.getAlias1() + "]");
@@ -262,6 +284,7 @@ public class OculariumFacade {
 
 	public static String getOclProjectPath(ProjectAccessor prjAccessor) throws ProjectNotFoundException {
 		assert prjAccessor != null;
+		
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
 
