@@ -15,6 +15,7 @@ import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IPackage;
+import com.change_vision.jude.api.inf.model.IParameter;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
 /**
@@ -24,6 +25,9 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  */
 public class OculariumFacade {
 
+	/**
+	 * 
+	 */
 	private IModel project;
 
 	/**
@@ -32,7 +36,9 @@ public class OculariumFacade {
 	 */
 	public OculariumFacade(IModel project) {
 		super();
+		assert project != null;
 		this.project = project;
+		assert this.project != null;
 	}
 
 	/**
@@ -40,9 +46,10 @@ public class OculariumFacade {
 	 * @return
 	 */
 	public List<IClass> getConstrainedClasses() {
-		List<IClass> classeList = new ArrayList<IClass>();
+		assert project != null;
+		List<IClass> classList = new ArrayList<IClass>();
 		try {
-			getAllClasses(project, classeList);
+			getAllClasses(project, classList);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,12 +57,13 @@ public class OculariumFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return classeList;
+		return classList;
 	}
 
 	// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
 	private void getAllClasses(INamedElement element, List<IClass> classList)
 			throws ClassNotFoundException, ProjectNotFoundException {
+		assert project != null;
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
 				getAllClasses(ownedNamedElement, classList);
@@ -84,6 +92,7 @@ public class OculariumFacade {
 					}
 				}
 			}
+			
 			if (constrained) {
 				classList.add(c);
 			}
@@ -97,6 +106,7 @@ public class OculariumFacade {
 	/**
 	 */
 	public List<IConstraint> getConstraints() {
+		assert project != null;
 		List<IConstraint> classeList = new ArrayList<IConstraint>();
 		try {
 			getAllConstraints(project, classeList);
@@ -111,11 +121,14 @@ public class OculariumFacade {
 	}
 
 	// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
-	private void getAllConstraints(INamedElement element, List<IConstraint> classList)
+	private void getAllConstraints(INamedElement element, List<IConstraint> constraintList)
 			throws ClassNotFoundException, ProjectNotFoundException {
+		assert project != null;
+		assert element != null;
+		assert constraintList != null;
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
-				getAllConstraints(ownedNamedElement, classList);
+				getAllConstraints(ownedNamedElement, constraintList);
 			}
 		} else if (element instanceof IClass) {
 			//
@@ -124,7 +137,7 @@ public class OculariumFacade {
 			IConstraint[] ccs = c.getConstraints();
 			if (ccs.length > 0) {
 				for (IConstraint v : ccs) {
-					classList.add(v);
+					constraintList.add(v);
 				}
 			}
 
@@ -133,7 +146,7 @@ public class OculariumFacade {
 
 				if (acs.length > 0) {
 					for (IConstraint v : acs) {
-						classList.add(v);
+						constraintList.add(v);
 					}
 
 				}
@@ -144,13 +157,13 @@ public class OculariumFacade {
 
 				if (ocs.length > 0) {
 					for (IConstraint v : ocs) {
-						classList.add(v);
+						constraintList.add(v);
 					}
 				}
 			}
 
 			for (IClass nestedClasses : ((IClass) element).getNestedClasses()) {
-				getAllConstraints(nestedClasses, classList);
+				getAllConstraints(nestedClasses, constraintList);
 			}
 		}
 	}
@@ -161,6 +174,8 @@ public class OculariumFacade {
 	 * @throws IOException
 	 */
 	public void exportOCL(Writer output) throws IOException {
+		assert project != null;
+
 		output.write("-- Made with ocularium");
 		output.write("\n");
 		output.write("--");
@@ -174,26 +189,42 @@ public class OculariumFacade {
 	 * @throws IOException
 	 */
 	public void exportOCL0(Writer output) throws IOException {
+		assert project != null;
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
 			output.write("context ");
 			IElement[] ces = iConstraint.getConstrainedElement();
-			
+			assert ces.length == 1;
 			IElement e = ces[0];
 			if (e instanceof IAttribute) {
 				output.write(e.getOwner().toString());
 				output.write("::");
 				output.write(e.toString());
 			} else if (e instanceof IOperation) {
-				IOperation op = (IOperation)e;
-				String returnType = op.getReturnType().toString();
+				IOperation op = (IOperation) e;
+
 				output.write(op.getOwner().toString());
 				output.write("::");
-				output.write(op.toString()+"()" + (returnType == null? "": ": " + returnType));
+				output.write(op.toString());
+				output.write("(");
+				IParameter[] ps = op.getParameters();
+				for (IParameter iParameter : ps) {
+
+					String paramName = iParameter.getName().toString();
+					String paramType = iParameter.getType().toString();
+					output.write(paramName == null ? "" : paramName);
+					output.write(paramType == null ? "" : ": " + paramType);
+
+				}
+				output.write(")");
+
+				String returnType = op.getReturnType().toString();
+
+				output.write(returnType == null ? "" : ": " + returnType);
 			} else {
 				output.write(iConstraint.getConstrainedElement()[0].toString());
-			}			
-			
+			}
+
 			output.write("\n");
 			output.write(iConstraint.getSpecification());
 			output.write("\n");
@@ -202,6 +233,8 @@ public class OculariumFacade {
 	}
 
 	public void dumpOCL(Writer output) throws IOException {
+		assert output != null;
+		assert project != null;
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
 			output.write("\n             alias1: [" + iConstraint.getAlias1() + "]");
@@ -228,6 +261,7 @@ public class OculariumFacade {
 	}
 
 	public static String getOclProjectPath(ProjectAccessor prjAccessor) throws ProjectNotFoundException {
+		assert prjAccessor != null;
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
 

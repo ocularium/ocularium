@@ -21,7 +21,7 @@ public class ImportOCLAction implements IPluginActionDelegate {
 	        AstahAPI api = AstahAPI.getAstahAPI();
 	        ProjectAccessor projectAccessor = api.getProjectAccessor();
 	        projectAccessor.getProject();
-	        JOptionPane.showMessageDialog(window.getParent(),"Import OCL Action");
+	        JOptionPane.showMessageDialog(window.getParent(),"Import OCL not implemented yet.");
 	    } catch (ProjectNotFoundException e) {
 	        String message = "Project is not opened.Please open the project or create new project.";
 			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE); 

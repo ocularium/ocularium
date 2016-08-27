@@ -31,8 +31,8 @@
    </extension>
       <extension point="com.change_vision.astah.ui.view">
         <view
-            id="ocularium.OculariumView"
+            id="ocularium.views.OculariumView"
             type="extraTab"
-            class="ocularium.OculariumView" />
+            class="ocularium.views.OculariumView" />
    </extension>
 </plugin>

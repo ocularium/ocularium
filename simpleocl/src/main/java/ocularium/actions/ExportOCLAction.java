@@ -31,10 +31,10 @@ public class ExportOCLAction implements IPluginActionDelegate {
 
 			Writer actual = new FileWriter(OculariumFacade.getOclProjectPath(projectAccessor));
 			f.exportOCL(actual);
-			projectAccessor.close();	
+			//projectAccessor.close();	
 			actual.close();
 
-	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Action");
+	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Completed!");
 	    } catch (ProjectNotFoundException e) {
 	        String message = "Project is not opened.Please open the project or create new project.";
 			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE); 

@@ -1,4 +1,4 @@
-package ocularium;
+package ocularium.views;
 
 /*
  * Please change this class's package to your genearated Plug-in's package.
