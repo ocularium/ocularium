@@ -220,79 +220,14 @@ public class OculariumFacade {
 		assert project != null;
 
 		List<IConstraint> allConstraints = getConstraints();
-
+		ConstraintFormatter cf = ConstraintFormatter.getConstraintFormatter();
+		
 		for (IConstraint iConstraint : allConstraints) {
-			output.write("context ");
-			IElement[] ces = iConstraint.getConstrainedElement();
-			assert ces.length == 1;
-			IElement e = ces[0];
-			if (e instanceof IAttribute) {
-				IElement owner = e.getOwner();
-				if (owner instanceof IClass) {
-					IClass cl = (IClass) owner;
-					output.write(getFullName(cl));
-				} else {
-					output.write(owner.toString());
-				}
-				//output.write(owner.toString());
-				output.write("::");
-				output.write(e.toString());
-			} else if (e instanceof IOperation) {
-				IOperation op = (IOperation) e;
-
-				IElement owner = op.getOwner();
-				if (owner instanceof IClass) {
-					IClass cl = (IClass) owner;
-					output.write(getFullName(cl));
-				} else {
-					output.write(owner.toString());
-				}				
-				//output.write(owner.toString());
-				output.write("::");
-				output.write(op.toString());
-				output.write("(");
-				IParameter[] ps = op.getParameters();
-
-				boolean firstParam = true;
-
-				for (IParameter iParameter : ps) {
-					if (!firstParam) {
-						output.write(", ");
-
-					}
-					String paramName = iParameter.getName().toString();
-					String paramType = iParameter.getType().toString();
-					output.write(paramName == null ? "" : paramName);
-					output.write(paramType == null ? "" : ": " + paramType);
-
-				}
-
-				output.write(")");
-
-				String returnType = op.getReturnType().toString();
-
-				output.write(returnType == null ? "" : ": " + returnType);
-			} else {
-				if (e instanceof IClass) {
-					IClass cl = (IClass) e;
-					output.write(getFullName(cl));
-				} else {
-					output.write(e.toString());
-				}
-			}
-
-			output.write("\n");
-			String spec = iConstraint.getSpecification();
-			if (spec.startsWith("BODYCONDITION:")) {
-				spec = spec.substring("BODYCONDITION:".length());
-			} else if (spec.startsWith("POSTCONDITION:")) {
-				spec = spec.substring("POSTCONDITION:".length());
-			}
-
-			output.write(spec);
-			output.write("\n");
+			cf.setConstraint(iConstraint);
+			output.write(cf.toString());
 			output.write("\n");
 		}
+		
 	}
 
 	/**
@@ -341,21 +276,5 @@ public class OculariumFacade {
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
 
-	/**
-	 * 
-	 * @param iClass
-	 * @return
-	 */
-	private static String getFullName(IClass iClass) {
-		assert iClass != null;
-		
-		StringBuffer sb = new StringBuffer();
-		IElement owner = iClass.getOwner();
-		while (owner != null && owner instanceof INamedElement && owner.getOwner() != null) {
-			sb.insert(0, ((INamedElement) owner).getName() + "::");
-			owner = owner.getOwner();
-		}
-		sb.append(iClass.getName());
-		return sb.toString();
-	}
+
 }
