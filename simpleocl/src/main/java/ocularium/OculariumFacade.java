@@ -69,7 +69,7 @@ public class OculariumFacade {
 	 */
 	public List<IClass> getConstrainedClasses() {
 		assert project != null;
-		
+
 		List<IClass> classList = new ArrayList<IClass>();
 		try {
 			getAllClasses(project, classList);
@@ -87,7 +87,7 @@ public class OculariumFacade {
 	private void getAllClasses(INamedElement element, List<IClass> classList)
 			throws ClassNotFoundException, ProjectNotFoundException {
 		assert project != null;
-		
+
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
 				getAllClasses(ownedNamedElement, classList);
@@ -131,7 +131,7 @@ public class OculariumFacade {
 	 */
 	public List<IConstraint> getConstraints() {
 		assert project != null;
-		
+
 		List<IConstraint> classeList = new ArrayList<IConstraint>();
 		try {
 			getAllConstraints(project, classeList);
@@ -151,7 +151,7 @@ public class OculariumFacade {
 		assert project != null;
 		assert element != null;
 		assert constraintList != null;
-		
+
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
 				getAllConstraints(ownedNamedElement, constraintList);
@@ -207,7 +207,7 @@ public class OculariumFacade {
 		output.write("--");
 		output.write("\n");
 		output.write("\n");
-		
+
 		exportOCL0(output);
 	}
 
@@ -218,21 +218,36 @@ public class OculariumFacade {
 	 */
 	public void exportOCL0(Writer output) throws IOException {
 		assert project != null;
-		
-		List<IConstraint> actual = getConstraints();
-		for (IConstraint iConstraint : actual) {
+
+		List<IConstraint> allConstraints = getConstraints();
+
+		for (IConstraint iConstraint : allConstraints) {
 			output.write("context ");
 			IElement[] ces = iConstraint.getConstrainedElement();
 			assert ces.length == 1;
 			IElement e = ces[0];
 			if (e instanceof IAttribute) {
-				output.write(e.getOwner().toString());
+				IElement owner = e.getOwner();
+				if (owner instanceof IClass) {
+					IClass cl = (IClass) owner;
+					output.write(getFullName(cl));
+				} else {
+					output.write(owner.toString());
+				}
+				//output.write(owner.toString());
 				output.write("::");
 				output.write(e.toString());
 			} else if (e instanceof IOperation) {
 				IOperation op = (IOperation) e;
 
-				output.write(op.getOwner().toString());
+				IElement owner = op.getOwner();
+				if (owner instanceof IClass) {
+					IClass cl = (IClass) owner;
+					output.write(getFullName(cl));
+				} else {
+					output.write(owner.toString());
+				}				
+				//output.write(owner.toString());
 				output.write("::");
 				output.write(op.toString());
 				output.write("(");
@@ -258,7 +273,12 @@ public class OculariumFacade {
 
 				output.write(returnType == null ? "" : ": " + returnType);
 			} else {
-				output.write(iConstraint.getConstrainedElement()[0].toString());
+				if (e instanceof IClass) {
+					IClass cl = (IClass) e;
+					output.write(getFullName(cl));
+				} else {
+					output.write(e.toString());
+				}
 			}
 
 			output.write("\n");
@@ -278,7 +298,7 @@ public class OculariumFacade {
 	public void dumpOCL(Writer output) throws IOException {
 		assert output != null;
 		assert project != null;
-		
+
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
 			output.write("\n             alias1: [" + iConstraint.getAlias1() + "]");
@@ -306,19 +326,18 @@ public class OculariumFacade {
 
 	public static String getOclProjectPath(ProjectAccessor prjAccessor) throws ProjectNotFoundException {
 		assert prjAccessor != null;
-		
+
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
 
-	// private String getFullName(IClass iClass) {
-	// StringBuffer sb = new StringBuffer();
-	// IElement owner = iClass.getOwner();
-	// while (owner != null && owner instanceof INamedElement &&
-	// owner.getOwner() != null) {
-	// sb.insert(0, ((INamedElement) owner).getName() + "::");
-	// owner = owner.getOwner();
-	// }
-	// sb.append(iClass.getName());
-	// return sb.toString();
-	// }
+	private String getFullName(IClass iClass) {
+		StringBuffer sb = new StringBuffer();
+		IElement owner = iClass.getOwner();
+		while (owner != null && owner instanceof INamedElement && owner.getOwner() != null) {
+			sb.insert(0, ((INamedElement) owner).getName() + "::");
+			owner = owner.getOwner();
+		}
+		sb.append(iClass.getName());
+		return sb.toString();
+	}
 }
