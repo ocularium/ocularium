@@ -24,17 +24,23 @@ package ocularium.views;
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.change_vision.jude.api.inf.AstahAPI;
+import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
+import com.change_vision.jude.api.inf.model.IConstraint;
+import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.project.ProjectEvent;
 import com.change_vision.jude.api.inf.project.ProjectEventListener;
 import com.change_vision.jude.api.inf.ui.IPluginExtraTabView;
 import com.change_vision.jude.api.inf.ui.ISelectionListener;
+
+import ocularium.OculariumFacade;
 
 /**
  * 
@@ -43,34 +49,58 @@ import com.change_vision.jude.api.inf.ui.ISelectionListener;
  */
 public class OculariumView extends JPanel implements IPluginExtraTabView {
 
+	/**
+	 * Listen for notifications from Astah projects
+	 * 
+	 * @author marco
+	 *
+	 */
 	private final class OculariumProjectListener implements ProjectEventListener {
+
 		@Override
 		public void projectChanged(ProjectEvent e) {
+			refresh();
 		}
 
 		@Override
 		public void projectClosed(ProjectEvent e) {
+			dm.resetData();
 		}
 
 		@Override
 		public void projectOpened(ProjectEvent e) {
+			refresh();
 		}
+		
+
 	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6960786230313145651L;
+	
+	/**
+	 * 
+	 */
+	private OclTableModel dm;
 
+	/**
+	 * 
+	 * @return
+	 */
+	public OclTableModel getModel() {
+		return dm;
+	}
+	
+	/**
+	 * 
+	 */
 	public OculariumView() {
 		setLayout(new GridLayout(1, 0));
 
-		String[] columnNames = { "Context", "Expression" };
-
-		Object[][] data = { { "Kathy", "Smith", }, { "John", "Doe", }, { "Sue", "Black", }, { "Jane", "White", },
-				{ "Joe", "Brown", } };
-
-		final JTable table = new JTable(data, columnNames);
+		dm = new OclTableModel();
+		final JTable table = new JTable(dm);
 		// table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		table.setFillsViewportHeight(true);
 
@@ -82,6 +112,9 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 		addProjectEventListener();
 	}
 
+	/**
+	 * 
+	 */
 	private void addProjectEventListener() {
 		try {
 			ProjectAccessor projectAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
@@ -110,11 +143,40 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 		return "Ocularium";
 	}
 
+	/**
+	 * 
+	 */
 	public void activated() {
-
+// TODO: may need to call refresh...
+		//refresh();
 	}
 
+	/**
+	 * 
+	 */
 	public void deactivated() {
 
 	}
+	
+	
+	/**
+	 * Load all constraints into table model
+	 */
+	private void refresh() {
+		AstahAPI api;
+		try {
+			api = AstahAPI.getAstahAPI();
+
+			ProjectAccessor projectAccessor = api.getProjectAccessor();
+			IModel project = projectAccessor.getProject();
+			OculariumFacade f = new OculariumFacade(project);
+			List<IConstraint> cs = f.getConstraints();
+			dm.setData(cs);
+
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (ProjectNotFoundException e1) {
+			e1.printStackTrace();
+		}
+	}	
 }

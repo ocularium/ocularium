@@ -295,9 +295,14 @@ public class OculariumFacade {
 		}
 	}
 
+	/**
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
 	public void dumpOCL(Writer output) throws IOException {
-		assert output != null;
 		assert project != null;
+		assert output != null;
 
 		List<IConstraint> actual = getConstraints();
 		for (IConstraint iConstraint : actual) {
@@ -324,13 +329,26 @@ public class OculariumFacade {
 
 	}
 
+	/**
+	 * 
+	 * @param prjAccessor
+	 * @return
+	 * @throws ProjectNotFoundException
+	 */
 	public static String getOclProjectPath(ProjectAccessor prjAccessor) throws ProjectNotFoundException {
 		assert prjAccessor != null;
 
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
 
-	private String getFullName(IClass iClass) {
+	/**
+	 * 
+	 * @param iClass
+	 * @return
+	 */
+	private static String getFullName(IClass iClass) {
+		assert iClass != null;
+		
 		StringBuffer sb = new StringBuffer();
 		IElement owner = iClass.getOwner();
 		while (owner != null && owner instanceof INamedElement && owner.getOwner() != null) {
