@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Astah-Edition: all
 Astah-Version: 6.7
-Bnd-LastModified: 1472316181089
+Bnd-LastModified: 1472394498681
 Build-Jdk: 1.8.0_25
 Built-By: marco
 Bundle-Activator: ocularium.Activator
@@ -11,23 +11,25 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %bundle.name
 Bundle-SymbolicName: ocularium.simpleocl; singleton:=true
 Bundle-Vendor: Ocularium
-Bundle-Version: 1.0.3
+Bundle-Version: 1.0.4
 Created-By: Apache Maven Bundle Plugin
 Embed-Dependency: *;scope=compile|runtime;type=!pom
 Embed-Transitive: true
 Export-Package: ocularium;uses:="org.osgi.framework,com.change_vision.ju
- de.api.inf.exception,com.change_vision.jude.api.inf.project,com.change_
- vision.jude.api.inf.model";version="1.0.3",ocularium.views;uses:="com.c
- hange_vision.jude.api.inf.project,com.change_vision.jude.api.inf.ui,com
- .change_vision.jude.api.inf,javax.swing";version="1.0.3",ocularium.acti
- ons;uses:="com.change_vision.jude.api.inf.ui,com.change_vision.jude.api
- .inf.exception,com.change_vision.jude.api.inf.project,ocularium,com.cha
- nge_vision.jude.api.inf.model,com.change_vision.jude.api.inf,javax.swin
- g";version="1.0.3"
+ de.api.inf.model,com.change_vision.jude.api.inf.exception,com.change_vi
+ sion.jude.api.inf.project";version="1.0.4",ocularium.views;uses:="ocula
+ rium,javax.swing.table,com.change_vision.jude.api.inf.model,com.change_
+ vision.jude.api.inf.project,com.change_vision.jude.api.inf.ui,com.chang
+ e_vision.jude.api.inf.exception,com.change_vision.jude.api.inf,javax.sw
+ ing";version="1.0.4",ocularium.actions;uses:="com.change_vision.jude.ap
+ i.inf.ui,com.change_vision.jude.api.inf.exception,com.change_vision.jud
+ e.api.inf.project,ocularium,com.change_vision.jude.api.inf.model,com.ch
+ ange_vision.jude.api.inf,javax.swing";version="1.0.4"
 Import-Package: com.change_vision.jude.api.inf;resolution:=optional,com.
  change_vision.jude.api.inf.exception;resolution:=optional,com.change_vi
  sion.jude.api.inf.model;resolution:=optional,com.change_vision.jude.api
  .inf.project;resolution:=optional,com.change_vision.jude.api.inf.ui;res
- olution:=optional,javax.swing;resolution:=optional,org.osgi.framework;v
- ersion="[1.5,2)";resolution:=optional
+ olution:=optional,javax.swing;resolution:=optional,javax.swing.table;re
+ solution:=optional,org.osgi.framework;version="[1.5,2)";resolution:=opt
+ ional
 Tool: Bnd-1.50.0

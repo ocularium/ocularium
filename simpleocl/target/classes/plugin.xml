@@ -29,10 +29,10 @@
 
      </actionSet>
    </extension>
-      <!--extension point="com.change_vision.astah.ui.view">
+      <extension point="com.change_vision.astah.ui.view">
         <view
             id="ocularium.views.OculariumView"
             type="extraTab"
             class="ocularium.views.OculariumView" />
-   </extension!-->
+   </extension>
 </plugin>
