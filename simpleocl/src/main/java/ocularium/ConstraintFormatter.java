@@ -1,8 +1,5 @@
 package ocularium;
 
-import java.io.StringWriter;
-import java.io.Writer;
-
 import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IConstraint;
@@ -23,85 +20,18 @@ public class ConstraintFormatter {
 
 	@Override
 	public String toString() {
-		String s = "";
-		Writer output = new StringWriter();
-
+		assert iConstraint != null;
+		StringBuffer sb = new StringBuffer();
 		try {
-			output.write("context ");
-			IElement[] ces = iConstraint.getConstrainedElement();
-			assert ces.length == 1;
-			IElement e = ces[0];
-			if (e instanceof IAttribute) {
-				IElement owner = e.getOwner();
-				if (owner instanceof IClass) {
-					IClass cl = (IClass) owner;
-					output.write(getFullName(cl));
-				} else {
-					output.write(owner.toString());
-				}
-				// output.write(owner.toString());
-				output.write("::");
-				output.write(e.toString());
-			} else if (e instanceof IOperation) {
-				IOperation op = (IOperation) e;
-
-				IElement owner = op.getOwner();
-				if (owner instanceof IClass) {
-					IClass cl = (IClass) owner;
-					output.write(getFullName(cl));
-				} else {
-					output.write(owner.toString());
-				}
-				// output.write(owner.toString());
-				output.write("::");
-				output.write(op.toString());
-				output.write("(");
-				IParameter[] ps = op.getParameters();
-
-				boolean firstParam = true;
-
-				for (IParameter iParameter : ps) {
-					if (!firstParam) {
-						output.write(", ");
-
-					}
-					String paramName = iParameter.getName().toString();
-					String paramType = iParameter.getType().toString();
-					output.write(paramName == null ? "" : paramName);
-					output.write(paramType == null ? "" : ": " + paramType);
-
-				}
-
-				output.write(")");
-
-				String returnType = op.getReturnType().toString();
-
-				output.write(returnType == null ? "" : ": " + returnType);
-			} else {
-				if (e instanceof IClass) {
-					IClass cl = (IClass) e;
-					output.write(getFullName(cl));
-				} else {
-					output.write(e.toString());
-				}
-			}
-
-			output.write("\n");
-			String spec = iConstraint.getSpecification();
-			if (spec.startsWith("BODYCONDITION:")) {
-				spec = spec.substring("BODYCONDITION:".length());
-			} else if (spec.startsWith("POSTCONDITION:")) {
-				spec = spec.substring("POSTCONDITION:".length());
-			}
-
-			output.write(spec);
-			output.write("\n");
-			s = output.toString();
-			output.close();
+			sb.append("context ");
+			sb.append(getContext());
+			sb.append("\n");
+			sb.append(getSpecification());
+			sb.append("\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return s;
+		return sb.toString();
 
 	}
 
@@ -125,6 +55,85 @@ public class ConstraintFormatter {
 			owner = owner.getOwner();
 		}
 		sb.append(iClass.getName());
+		return sb.toString();
+	}
+
+	public String getContext() {
+		assert iConstraint != null;
+
+		StringBuffer sb = new StringBuffer();
+
+		IElement[] ces = iConstraint.getConstrainedElement();
+		assert ces.length == 1;
+		IElement e = ces[0];
+		if (e instanceof IAttribute) {
+			IElement owner = e.getOwner();
+			if (owner instanceof IClass) {
+				IClass cl = (IClass) owner;
+				sb.append(getFullName(cl));
+			} else {
+				sb.append(owner.toString());
+			}
+			// output.write(owner.toString());
+			sb.append("::");
+			sb.append(e.toString());
+		} else if (e instanceof IOperation) {
+			IOperation op = (IOperation) e;
+
+			IElement owner = op.getOwner();
+			if (owner instanceof IClass) {
+				IClass cl = (IClass) owner;
+				sb.append(getFullName(cl));
+			} else {
+				sb.append(owner.toString());
+			}
+			// output.write(owner.toString());
+			sb.append("::");
+			sb.append(op.toString());
+			sb.append("(");
+			IParameter[] ps = op.getParameters();
+
+			boolean firstParam = true;
+
+			for (IParameter iParameter : ps) {
+				if (!firstParam) {
+					sb.append(", ");
+
+				}
+				String paramName = iParameter.getName().toString();
+				String paramType = iParameter.getType().toString();
+				sb.append(paramName == null ? "" : paramName);
+				sb.append(paramType == null ? "" : ": " + paramType);
+
+			}
+			sb.append(")");
+
+			String returnType = op.getReturnType().toString();
+
+			sb.append(returnType == null ? "" : ": " + returnType);
+		} else {
+			if (e instanceof IClass) {
+				IClass cl = (IClass) e;
+				sb.append(getFullName(cl));
+			} else {
+				sb.append(e.toString());
+			}
+		}
+		return sb.toString();
+	}
+
+	public String getSpecification() {
+		assert iConstraint != null;
+
+		StringBuffer sb = new StringBuffer();
+		String spec = iConstraint.getSpecification();
+		if (spec.startsWith("BODYCONDITION:")) {
+			spec = spec.substring("BODYCONDITION:".length());
+		} else if (spec.startsWith("POSTCONDITION:")) {
+			spec = spec.substring("POSTCONDITION:".length());
+		}
+
+		sb.append(spec);
 		return sb.toString();
 	}
 

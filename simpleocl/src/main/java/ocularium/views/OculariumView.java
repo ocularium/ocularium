@@ -71,7 +71,6 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 		public void projectOpened(ProjectEvent e) {
 			refresh();
 		}
-		
 
 	}
 
@@ -79,7 +78,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	 * 
 	 */
 	private static final long serialVersionUID = -6960786230313145651L;
-	
+
 	/**
 	 * 
 	 */
@@ -92,7 +91,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	public OclTableModel getModel() {
 		return dm;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -109,6 +108,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 		add(scrollPane);
 		//
 
+		// addListener on activate?
 		addProjectEventListener();
 	}
 
@@ -147,8 +147,8 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	 * 
 	 */
 	public void activated() {
-// TODO: may need to call refresh...
-		//refresh();
+		// TODO: may need to call refresh...
+		// refresh();
 	}
 
 	/**
@@ -157,8 +157,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	public void deactivated() {
 
 	}
-	
-	
+
 	/**
 	 * Load all constraints into table model
 	 */
@@ -178,5 +177,5 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 		} catch (ProjectNotFoundException e1) {
 			e1.printStackTrace();
 		}
-	}	
+	}
 }
