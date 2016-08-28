@@ -18,21 +18,21 @@
                menubarPath="tool/simpleocl/"
                id="simpleoclexport">
          </action>
-          <action
+          <!--action
 			   label="%import_label"
                icon="icons/sample.gif"
                class="ocularium.actions.ImportOCLAction"
                tooltip="%import_tooltip"
                menubarPath="tool/simpleocl/"
                id="simpleoclimport">
-         </action>        
+         </action !-->        
 
      </actionSet>
    </extension>
-      <extension point="com.change_vision.astah.ui.view">
+      <!--extension point="com.change_vision.astah.ui.view">
         <view
             id="ocularium.views.OculariumView"
             type="extraTab"
             class="ocularium.views.OculariumView" />
-   </extension>
+   </extension!-->
 </plugin>
