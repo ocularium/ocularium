@@ -43,6 +43,7 @@ import com.change_vision.jude.api.inf.ui.ISelectionListener;
 import ocularium.OculariumFacade;
 
 /**
+ * Panel for Ocularium plug-in.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -50,9 +51,11 @@ import ocularium.OculariumFacade;
 public class OculariumView extends JPanel implements IPluginExtraTabView {
 
 	/**
-	 * Listen for notifications from Astah projects
+	 * Listen for notifications from Astah projects. Project open and project
+	 * close cause a complete redraw. Project close resets view to an empty
+	 * list.
 	 * 
-	 * @author marco
+	 * @author marco.mangan@gmail.com
 	 *
 	 */
 	private final class OculariumProjectListener implements ProjectEventListener {

@@ -32,15 +32,14 @@ import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
 import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IConstraint;
-import com.change_vision.jude.api.inf.model.IElement;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IPackage;
-import com.change_vision.jude.api.inf.model.IParameter;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
 /**
+ * Ocularium Façade and main class.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -221,13 +220,13 @@ public class OculariumFacade {
 
 		List<IConstraint> allConstraints = getConstraints();
 		ConstraintFormatter cf = ConstraintFormatter.getConstraintFormatter();
-		
+
 		for (IConstraint iConstraint : allConstraints) {
 			cf.setConstraint(iConstraint);
 			output.write(cf.toString());
 			output.write("\n");
 		}
-		
+
 	}
 
 	/**
@@ -275,6 +274,5 @@ public class OculariumFacade {
 
 		return prjAccessor.getProjectPath() + ".ocl";
 	}
-
 
 }

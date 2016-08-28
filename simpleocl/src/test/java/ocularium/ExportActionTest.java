@@ -37,6 +37,7 @@ import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
 /**
+ * Sanity checking and automated testing for exporting opaque constraints.
  * 
  * @author marco.mangan@gmail.com
  *

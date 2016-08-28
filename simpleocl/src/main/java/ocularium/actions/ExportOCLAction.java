@@ -38,6 +38,7 @@ import com.change_vision.jude.api.inf.ui.IWindow;
 import ocularium.OculariumFacade;
 
 /**
+ * OSGi action to export constraints.
  * 
  * @author marco.mangan@gmail.com
  *

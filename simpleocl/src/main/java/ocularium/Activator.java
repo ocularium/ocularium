@@ -27,6 +27,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
+ * Astah activator.
  * 
  * @author marco.mangan@gmail.com
  *

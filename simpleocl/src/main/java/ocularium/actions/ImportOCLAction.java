@@ -32,6 +32,7 @@ import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 
 /**
+ * OSGi action to import constraints.
  * 
  * @author marco.mangan@gmail.com
  *

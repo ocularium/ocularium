@@ -31,7 +31,8 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import ocularium.OculariumFacade;
 
 /**
- * Simple exploratory test application to checkout export results from W&K R&L, Second Edition, Chapter 2.
+ * Simple exploratory test application to check out dump results from W&K R&L, Second Edition, Chapter 2.
+ * 
  * @author marco.mangan@gmail.com
  *
  */
