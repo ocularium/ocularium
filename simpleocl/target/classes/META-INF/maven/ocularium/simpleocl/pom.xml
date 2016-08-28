@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ocularium</groupId>
 	<artifactId>simpleocl</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>jar</packaging>
 	<name>%bundle.name</name>
 	<description>%bundle.description</description>
@@ -287,4 +287,17 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<organization>
+		<name>Ocularium</name>
+		<url>https://ocularium.github.io/ocularium/</url>
+	</organization>
+	<scm>
+		<url>https://github.com/ocularium/ocularium</url>
+	</scm>
+	<issueManagement>
+		<url>https://github.com/ocularium/ocularium/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<url>https://travis-ci.org/ocularium/ocularium</url>
+	</ciManagement>
 </project>

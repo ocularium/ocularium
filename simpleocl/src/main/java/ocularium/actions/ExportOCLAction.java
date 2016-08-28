@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2016, Ocularium. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+ * and associated documentation files (the "Software"), to deal in the Software without restriction, 
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies 
+ * or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+ * AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ *
+ * Please contact Ocularium at http://ocularium.github.io/ocularium if you need additional 
+ * information or have any questions.
+ */
 package ocularium.actions;
 
 
@@ -17,7 +39,7 @@ import ocularium.OculariumFacade;
 
 /**
  * 
- * @author marco.mangan@pucrs.br
+ * @author marco.mangan@gmail.com
  *
  */
 public class ExportOCLAction implements IPluginActionDelegate {
@@ -34,7 +56,7 @@ public class ExportOCLAction implements IPluginActionDelegate {
 			//projectAccessor.close();	
 			actual.close();
 
-	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Completed!");
+	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Completed! See project folder for generated file.");
 	    } catch (ProjectNotFoundException e) {
 	        String message = "Project is not opened.Please open the project or create new project.";
 			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE); 
