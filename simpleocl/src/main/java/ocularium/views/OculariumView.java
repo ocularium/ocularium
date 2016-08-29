@@ -151,7 +151,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	 */
 	public void activated() {
 		// TODO: may need to call refresh...
-		// refresh();
+		refresh();
 	}
 
 	/**

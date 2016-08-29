@@ -55,7 +55,7 @@ public class DumpWKRLC2App {
 		System.out.println("Running facade...");
 
 		OculariumFacade f = new OculariumFacade(project);
-		System.out.println("Exporting constraints...");
+		System.out.println("Dumping constraints...");
 		
 		f.dumpOCL(fw);
 		prjAccessor.close();
