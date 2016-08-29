@@ -3,10 +3,8 @@ env:
   global:
     - SKIP_IMAGE_CHECK=1
 before_install:
-  - brew tap caskroom/cask
-  - brew install caskroom/cask/brew-cask
-  - brew install java python python3
-  - brew cask update
+  - brew update
+  - brew cask install java
   - brew cask install astah-community
   
 script: mvn test -f ./simpleocl/pom.xml
