@@ -24,8 +24,11 @@ package ocularium;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.Test;
@@ -43,11 +46,11 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  *
  */
 public class ExportActionTest {
-	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
+	private static final String WK_C2_FILE = "../specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
-	private static final String COMPANY_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
-	private static final String PERSON_SPOUSE_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-person-has-spouse.asta";
-	private static final String PERSON_INCOME_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-person-income.asta";
+	private static final String COMPANY_FILE = "../specs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
+	private static final String PERSON_SPOUSE_FILE = "../specs/omg-ocl-spec/omg-ocl-spec-minimal-person-has-spouse.asta";
+	private static final String PERSON_INCOME_FILE = "../specs/omg-ocl-spec/omg-ocl-spec-minimal-person-income.asta";
 
 	@Test
 	public void testCompanyHasEnoughEmployeesGetConstrainedClasses() throws Exception {
@@ -125,8 +128,9 @@ public class ExportActionTest {
 	public void testCompanyHasEnoughEmployeesExportOclToSameNameFile() throws Exception {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(COMPANY_FILE, true, false, true);
-		String actual = OculariumFacade.getOclProjectPath(prjAccessor);
-		String expected = COMPANY_FILE + ".ocl";
+		String actual = Paths.get(OculariumFacade.getOclProjectPath(prjAccessor)).toAbsolutePath().toString();
+		
+		String expected = Paths.get(COMPANY_FILE + ".ocl").toAbsolutePath().toString();
 		prjAccessor.close();
 		assertEquals(expected, actual);
 	}

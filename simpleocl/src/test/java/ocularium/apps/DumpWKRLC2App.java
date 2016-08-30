@@ -37,7 +37,7 @@ import ocularium.OculariumFacade;
  *
  */
 public class DumpWKRLC2App {
-	private static final String WK_C2_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
+	private static final String WK_C2_FILE = "../specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
 	public static void main(String[] args) throws Exception {
 		

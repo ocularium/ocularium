@@ -39,7 +39,7 @@ import ocularium.views.OculariumView;
  *
  */
 public class OculariumViewTest {
-	private static final String COMPANY_FILE = "/Users/marco/dvlp-2016-2/ocularium/specs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
+	private static final String COMPANY_FILE = "../specs/omg-ocl-spec/omg-ocl-spec-minimal-company-inv-enough-employees.asta";
 
 	@Test
 	public void testEmptyModelHasZeroRows() throws Exception {
