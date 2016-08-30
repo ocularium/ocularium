@@ -6,8 +6,4 @@ before_install:
   - brew update
   - brew cask install java
   - brew cask install astah-community
-
-  - ls /Applications/astah\ community/astah\ community.app/Contents/Java
-
-  
-script: mvn test -f ./simpleocl/pom.xml
+script: mvn test -PCommunity -f ./simpleocl/pom.xml
