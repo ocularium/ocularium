@@ -7,7 +7,6 @@
 		<plugin.install>true</plugin.install>
 		<astah.version>6.7</astah.version>
 		<astah.edition>all</astah.edition>
-		<astahPath>/Applications/astah professional/astah professional.app/Contents/Java</astahPath>
 	</properties>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ocularium</groupId>
@@ -253,7 +252,25 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<dependencies>
+	
+	  <profiles>
+    <profile>
+      <id>Professional</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+                    <property>
+          <name>Professional</name>
+          <value>true</value>
+        </property>
+        <file>
+          <exists>/Applications/astah professional/astah professional.app/Contents/Java/astah-pro.jar</exists>
+        </file>
+        
+      </activation>
+      <properties>
+      		<astahPath>/Applications/astah professional/astah professional.app/Contents/Java</astahPath>
+      </properties>
+      <dependencies>
 		<dependency>
 			<groupId>com.change_vision.astah</groupId>
 			<artifactId>astah-api</artifactId>
@@ -267,7 +284,50 @@
 			<version>${astah.version}</version>
 			<scope>system</scope>
 			<systemPath>${astahPath}/astah-pro.jar</systemPath>
-		</dependency>		
+		</dependency>
+</dependencies>
+      
+    </profile>
+     <profile>
+      <id>Community</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+                    <property>
+          <name>Community</name>
+          <value>true</value>
+        </property>
+        <file>
+          <exists>/Applications/astah community/astah community.app/Contents/Java/astah-community.jar</exists>
+        </file>
+        
+      </activation>
+      <properties>
+      		<astahPath>/Applications/astah community/astah community.app/Contents/Java</astahPath>
+      </properties>
+      <dependencies>
+		<dependency>
+			<groupId>com.change_vision.astah</groupId>
+			<artifactId>astah-api</artifactId>
+			<version>${astah.version}</version>
+			<scope>system</scope>
+			<systemPath>${astahPath}/astah-api.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.change_vision.astah</groupId>
+			<artifactId>astah-pro</artifactId>
+			<version>${astah.version}</version>
+			<scope>system</scope>
+			<systemPath>${astahPath}/astah-community.jar</systemPath>
+		</dependency>
+</dependencies>
+      
+    </profile>
+ 
+  </profiles>
+	
+	
+	<dependencies>
+		
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
