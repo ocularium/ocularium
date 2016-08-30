@@ -1,9 +1,9 @@
-language: java
-
+language: objective-c  # Do tests on OS X
+env:
+  global:
+    - SKIP_IMAGE_CHECK=1
 before_install:
-  - brew tap caskroom/cask
-  - brew install brew-cask python python3
-  - brew cask update
+  - brew update
+  - brew cask install java
   - brew cask install astah-community
-  
-script: mvn test -f ./simpleocl/pom.xml
+script: mvn test -PCommunity -f ./simpleocl/pom.xml
