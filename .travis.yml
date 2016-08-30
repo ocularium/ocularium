@@ -6,6 +6,12 @@ before_install:
   - brew update
   - brew cask install java
   - brew cask install astah-community
+  - whereis astah-community
+  - ls /
   - ls /Applications
+  - ls /usr
+  - ls /opt
+  - ls /bin
+  - ls /usr/local
   
 script: mvn test -f ./simpleocl/pom.xml
