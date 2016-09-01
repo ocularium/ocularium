@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Astah-Edition: all
 Astah-Version: 6.7
-Bnd-LastModified: 1472431835511
+Bnd-LastModified: 1472748298461
 Build-Jdk: 1.8.0_25
 Built-By: marco
 Bundle-Activator: ocularium.Activator
@@ -11,20 +11,20 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %bundle.name
 Bundle-SymbolicName: ocularium.simpleocl; singleton:=true
 Bundle-Vendor: Ocularium
-Bundle-Version: 1.1.1
+Bundle-Version: 1.1.2
 Created-By: Apache Maven Bundle Plugin
 Embed-Dependency: *;scope=compile|runtime;type=!pom
 Embed-Transitive: true
 Export-Package: ocularium;uses:="org.osgi.framework,com.change_vision.ju
  de.api.inf.model,com.change_vision.jude.api.inf.exception,com.change_vi
- sion.jude.api.inf.project";version="1.1.1",ocularium.views;uses:="ocula
+ sion.jude.api.inf.project";version="1.1.2",ocularium.views;uses:="ocula
  rium,javax.swing.table,com.change_vision.jude.api.inf.model,com.change_
  vision.jude.api.inf.project,com.change_vision.jude.api.inf.ui,com.chang
  e_vision.jude.api.inf.exception,com.change_vision.jude.api.inf,javax.sw
- ing";version="1.1.1",ocularium.actions;uses:="com.change_vision.jude.ap
+ ing";version="1.1.2",ocularium.actions;uses:="com.change_vision.jude.ap
  i.inf.ui,com.change_vision.jude.api.inf.exception,com.change_vision.jud
  e.api.inf.project,ocularium,com.change_vision.jude.api.inf.model,com.ch
- ange_vision.jude.api.inf,javax.swing";version="1.1.1"
+ ange_vision.jude.api.inf,javax.swing";version="1.1.2"
 Import-Package: com.change_vision.jude.api.inf;resolution:=optional,com.
  change_vision.jude.api.inf.exception;resolution:=optional,com.change_vi
  sion.jude.api.inf.model;resolution:=optional,com.change_vision.jude.api

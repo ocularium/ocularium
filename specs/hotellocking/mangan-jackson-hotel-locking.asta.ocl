@@ -1,0 +1,40 @@
+-- Made with ocularium (http://ocularium.github.io/ocularium)
+--
+
+context hotel::Room::init(): void
+post prev_eq_key : self.key4prev = Set{self.key4key}
+
+context hotel::Room::init(): void
+post issued_eq_room_key : Desk.allInstances.key4issued = Room.allInstances.key4key
+
+context hotel::Room::init(): void
+post
+ no_cards : Card.allInstances.gues4cards->isEmpty
+
+context hotel::Room::checkin(g: Guest): void
+post key_unchanged : self.key4key@pre = self.key4key
+
+context hotel::Room::checkin(g: Guest): void
+PRECONDITION:pre key_exists : Key.allInstances->exists(k | Desk.allInstances.key4issued->excludes(k))
+
+context hotel::Room::checkin(g: Guest): void
+post fst_snd_ok_cards_issued_prev_updated : Card.allInstances->exists(c | self.key4perv->includes(c.key4fst) and Desk.allInstances.key4issued->excludes(c.key4snd) and g.card4cards = g.card4cards@pre->including(c) and Desk.allInstances->forAll(d | d.key4issued = d.key4issued@pre->including(c.key4snd)) and self.key4prev = Set{c.key4snd})
+
+context hotel::Room::enter(g: Guest): void
+PRECONDITION:pre key_matches : g.card4cards->exists(c | let k = key4key in c.key4snd = k or c.key4fst = k
+
+context hotel::Room::enter(g: Guest): void
+post key_updated : g.card4cards->exists{c|let k = key4key in c.key4snd = k or c.key4fst = k
+
+context hotel::Room::enter(g: Guest): void
+post key_updated : g.card4cards->exists(c| let k = key4key in (c.key4snd = k and self.key4key = self.key4key@pre) or (c.key4fst = k and self.key4key = c.key4snd))
+
+context hotel::Room::enter(g: Guest): void
+post issued_unchanged : Desk.allInstances->forAll(d | d.key4issued@pre = d.key4issued)
+
+context hotel::Room::enter(g: Guest): void
+post prev_unchanged : Room.allInstances->forAll(r | self.desk4prev@pre = self.desk4prev and self.key4prev@pre = self.key4prev)
+
+context hotel::Room::enter(g: Guest): void
+post cards_unchanged : Card.allInstances->forAll(c | c.guest4cards@pre = c.guest4cards)
+

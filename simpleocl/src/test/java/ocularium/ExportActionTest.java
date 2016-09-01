@@ -24,10 +24,8 @@ package ocularium;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
