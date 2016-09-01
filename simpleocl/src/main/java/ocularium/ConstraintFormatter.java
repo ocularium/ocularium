@@ -159,6 +159,8 @@ public class ConstraintFormatter {
 			spec = spec.substring("BODYCONDITION:".length());
 		} else if (spec.startsWith("POSTCONDITION:")) {
 			spec = spec.substring("POSTCONDITION:".length());
+		} else if (spec.startsWith("PRECONDITION:")) {
+			spec = spec.substring("PRECONDITION:".length());
 		}
 
 		sb.append(spec);
