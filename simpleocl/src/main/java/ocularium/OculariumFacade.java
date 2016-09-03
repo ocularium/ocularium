@@ -23,11 +23,16 @@
 package ocularium;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.change_vision.jude.api.inf.AstahAPI;
+import com.change_vision.jude.api.inf.editor.BasicModelEditor;
+import com.change_vision.jude.api.inf.editor.ModelEditorFactory;
+import com.change_vision.jude.api.inf.editor.TransactionManager;
 import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
 import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;
@@ -198,8 +203,52 @@ public class OculariumFacade {
 	 * @param output
 	 * @throws IOException
 	 */
+	public void importOCL(Reader input) throws Exception {
+		assert project != null;
+		assert input != null;
+
+		importOCL0(input);
+	}
+	
+	private void importOCL0(Reader input) throws Exception {
+
+		
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		TransactionManager.beginTransaction();
+
+		BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
+
+		//IPackage packageA = basicModelEditor.createPackage(project, "omg");
+
+		//IClass classA = basicModelEditor.createClass(packageA, "Company");
+		//classA.setDefinition("Definition of ClassA");
+		// Add an attribute to the class
+		//basicModelEditor.createAttribute(classA, "numberOfEmployees", "int");
+		// Add an operation to the class
+		//basicModelEditor.createOperation(classA, "operation0", "void");
+
+		// Create a class in the specified package
+		//IClass classB = basicModelEditor.createClass(packageA, "ClassB");
+
+		// Add an association between classes
+		//basicModelEditor.createAssociation(classA, classB, "association name", "classA end", "classB end");
+		IClass classA = (IClass)  prjAccessor.findElements(IClass.class, "Company")[0];
+;
+		basicModelEditor.createConstraint(classA, "inv enoughEmployees : self.numberOfEmployees > 50");
+		
+
+		// End transaction
+		TransactionManager.endTransaction();		
+	}
+
+	/**
+	 * 
+	 * @param output
+	 * @throws IOException
+	 */
 	public void exportOCL(Writer output) throws IOException {
 		assert project != null;
+		assert output != null;
 
 		output.write("-- Made with ocularium (http://ocularium.github.io/ocularium)");
 		output.write("\n");
@@ -217,6 +266,7 @@ public class OculariumFacade {
 	 */
 	public void exportOCL0(Writer output) throws IOException {
 		assert project != null;
+		assert output != null;
 
 		List<IConstraint> allConstraints = getConstraints();
 		ConstraintFormatter cf = ConstraintFormatter.getConstraintFormatter();
