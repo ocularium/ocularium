@@ -307,8 +307,7 @@
 
 			</activation>
 			<properties>
-				<astahPath>/Applications/astah community/astah
-					community.app/Contents/Java</astahPath>
+				<astahPath>/Applications/astah community/astah community.app/Contents/Java</astahPath>
 			</properties>
 			<dependencies>
 				<dependency>
