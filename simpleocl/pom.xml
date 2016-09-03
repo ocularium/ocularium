@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<properties>
 		<bundle.symbolicName>ocularium.simpleocl</bundle.symbolicName>
 		<bundle.namespace>ocularium</bundle.namespace>
@@ -8,6 +9,7 @@
 		<astah.version>6.7</astah.version>
 		<astah.edition>all</astah.edition>
 	</properties>
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ocularium</groupId>
 	<artifactId>simpleocl</artifactId>
@@ -15,6 +17,7 @@
 	<packaging>jar</packaging>
 	<name>%bundle.name</name>
 	<description>%bundle.description</description>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>local_astah_repository</id>
@@ -29,6 +32,7 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+
 	<repositories>
 		<repository>
 			<id>java.net</id>
@@ -45,6 +49,7 @@
 			<url>http://uk.maven.org/maven2/</url>
 		</repository>
 	</repositories>
+
 	<reporting>
 		<plugins>
 			<plugin>
@@ -125,6 +130,7 @@
 			</plugin>
 		</plugins>
 	</reporting>
+
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -252,82 +258,81 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	
-	  <profiles>
-    <profile>
-      <id>Professional</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-                    <property>
-          <name>Professional</name>
-          <value>true</value>
-        </property>
-        <file>
-          <exists>/Applications/astah professional/astah professional.app/Contents/Java/astah-pro.jar</exists>
-        </file>
-        
-      </activation>
-      <properties>
-      		<astahPath>/Applications/astah professional/astah professional.app/Contents/Java</astahPath>
-      </properties>
-      <dependencies>
-		<dependency>
-			<groupId>com.change_vision.astah</groupId>
-			<artifactId>astah-api</artifactId>
-			<version>${astah.version}</version>
-			<scope>system</scope>
-			<systemPath>${astahPath}/astah-api.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.change_vision.astah</groupId>
-			<artifactId>astah-pro</artifactId>
-			<version>${astah.version}</version>
-			<scope>system</scope>
-			<systemPath>${astahPath}/astah-pro.jar</systemPath>
-		</dependency>
-</dependencies>
-      
-    </profile>
-     <profile>
-      <id>Community</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-                    <property>
-          <name>Community</name>
-          <value>true</value>
-        </property>
-        <file>
-          <exists>/Applications/astah community/astah community.app/Contents/Java/astah-community.jar</exists>
-        </file>
-        
-      </activation>
-      <properties>
-      		<astahPath>/Applications/astah community/astah community.app/Contents/Java</astahPath>
-      </properties>
-      <dependencies>
-		<dependency>
-			<groupId>com.change_vision.astah</groupId>
-			<artifactId>astah-api</artifactId>
-			<version>${astah.version}</version>
-			<scope>system</scope>
-			<systemPath>${astahPath}/astah-api.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.change_vision.astah</groupId>
-			<artifactId>astah-pro</artifactId>
-			<version>${astah.version}</version>
-			<scope>system</scope>
-			<systemPath>${astahPath}/astah-community.jar</systemPath>
-		</dependency>
-</dependencies>
-      
-    </profile>
- 
-  </profiles>
-	
-	
-	<dependencies>
+
+	<profiles>
+		<profile>
+			<id>Professional</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>Professional</name>
+					<value>true</value>
+				</property>
+				<file>
+					<exists>/Applications/astah professional/astah professional.app/Contents/Java/astah-pro.jar</exists>
+				</file>
+
+			</activation>
+			<properties>
+				<astahPath>/Applications/astah professional/astah professional.app/Contents/Java</astahPath>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.change_vision.astah</groupId>
+					<artifactId>astah-api</artifactId>
+					<version>${astah.version}</version>
+					<scope>system</scope>
+					<systemPath>${astahPath}/astah-api.jar</systemPath>
+				</dependency>
+				<dependency>
+					<groupId>com.change_vision.astah</groupId>
+					<artifactId>astah-pro</artifactId>
+					<version>${astah.version}</version>
+					<scope>system</scope>
+					<systemPath>${astahPath}/astah-pro.jar</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
 		
+		<profile>
+			<id>Community</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>Community</name>
+					<value>true</value>
+				</property>
+				<file>
+					<exists>/Applications/astah community/astah community.app/Contents/Java/astah-community.jar</exists>
+				</file>
+
+			</activation>
+			<properties>
+				<astahPath>/Applications/astah community/astah
+					community.app/Contents/Java</astahPath>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>com.change_vision.astah</groupId>
+					<artifactId>astah-api</artifactId>
+					<version>${astah.version}</version>
+					<scope>system</scope>
+					<systemPath>${astahPath}/astah-api.jar</systemPath>
+				</dependency>
+				<dependency>
+					<groupId>com.change_vision.astah</groupId>
+					<artifactId>astah-pro</artifactId>
+					<version>${astah.version}</version>
+					<scope>system</scope>
+					<systemPath>${astahPath}/astah-community.jar</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
+
+	</profiles>
+
+
+	<dependencies>
 		<dependency>
 			<groupId>org.osgi</groupId>
 			<artifactId>org.osgi.core</artifactId>
@@ -347,16 +352,20 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
 	<organization>
 		<name>Ocularium</name>
 		<url>https://ocularium.github.io/ocularium/</url>
 	</organization>
+	
 	<scm>
 		<url>https://github.com/ocularium/ocularium</url>
 	</scm>
+	
 	<issueManagement>
 		<url>https://github.com/ocularium/ocularium/issues</url>
 	</issueManagement>
+	
 	<ciManagement>
 		<url>https://travis-ci.org/ocularium/ocularium</url>
 	</ciManagement>
