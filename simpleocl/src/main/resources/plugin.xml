@@ -18,14 +18,14 @@
                menubarPath="tool/simpleocl/"
                id="simpleoclexport">
          </action>
-          <!--action
+          <action
 			   label="%import_label"
                icon="icons/sample.gif"
                class="ocularium.actions.ImportOCLAction"
                tooltip="%import_tooltip"
                menubarPath="tool/simpleocl/"
                id="simpleoclimport">
-         </action !-->        
+         </action>        
 
      </actionSet>
    </extension>

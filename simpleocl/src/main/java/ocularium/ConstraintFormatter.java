@@ -38,12 +38,22 @@ import com.change_vision.jude.api.inf.model.IParameter;
  */
 public class ConstraintFormatter {
 
+	/**
+	 * 
+	 */
 	private static final ConstraintFormatter DEFAULT_FORMATTER = new ConstraintFormatter();
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static ConstraintFormatter getConstraintFormatter() {
 		return DEFAULT_FORMATTER;
 	}
-
+	
+	/**
+	 * 
+	 */
 	private IConstraint iConstraint;
 
 	@Override
@@ -63,6 +73,10 @@ public class ConstraintFormatter {
 
 	}
 
+	/**
+	 * 
+	 * @param iConstraint
+	 */
 	public void setConstraint(IConstraint iConstraint) {
 		this.iConstraint = iConstraint;
 
@@ -86,6 +100,10 @@ public class ConstraintFormatter {
 		return sb.toString();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getContext() {
 		assert iConstraint != null;
 
@@ -150,6 +168,10 @@ public class ConstraintFormatter {
 		return sb.toString();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getSpecification() {
 		assert iConstraint != null;
 

@@ -84,6 +84,10 @@ public class OculariumFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		assert project != null;		
+		assert classList != null;
+
 		return classList;
 	}
 
@@ -91,6 +95,8 @@ public class OculariumFacade {
 	private void getAllClasses(INamedElement element, List<IClass> classList)
 			throws ClassNotFoundException, ProjectNotFoundException {
 		assert project != null;
+		assert element != null;
+		assert classList != null;
 
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
@@ -129,6 +135,10 @@ public class OculariumFacade {
 				getAllClasses(nestedClasses, classList);
 			}
 		}
+		
+		assert project != null;
+		assert element != null;
+		assert classList != null;
 	}
 
 	/**
@@ -146,6 +156,10 @@ public class OculariumFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
+		assert project != null;		
+		assert classeList != null;
+
 		return classeList;
 	}
 
