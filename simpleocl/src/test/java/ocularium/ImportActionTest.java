@@ -39,6 +39,8 @@ import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.model.IPackage;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+import ocularium.internal.OculariumFacade;
+
 /**
  * Sanity checking and automated testing for exporting opaque constraints.
  * 

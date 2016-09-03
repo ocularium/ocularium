@@ -20,7 +20,7 @@
  * Please contact Ocularium at http://ocularium.github.io/ocularium if you need additional 
  * information or have any questions.
  */
-package ocularium;
+package ocularium.internal;
 
 import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;

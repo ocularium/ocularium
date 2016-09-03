@@ -40,7 +40,7 @@ import com.change_vision.jude.api.inf.project.ProjectEventListener;
 import com.change_vision.jude.api.inf.ui.IPluginExtraTabView;
 import com.change_vision.jude.api.inf.ui.ISelectionListener;
 
-import ocularium.OculariumFacade;
+import ocularium.internal.OculariumFacade;
 
 /**
  * Panel for Ocularium plug-in.

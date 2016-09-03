@@ -20,7 +20,7 @@
  * Please contact Ocularium at http://ocularium.github.io/ocularium if you need additional 
  * information or have any questions.
  */
-package ocularium;
+package ocularium.internal;
 
 import java.io.IOException;
 import java.io.Reader;

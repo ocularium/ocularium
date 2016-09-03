@@ -29,7 +29,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.change_vision.jude.api.inf.model.IConstraint;
 
-import ocularium.ConstraintFormatter;
+import ocularium.internal.ConstraintFormatter;
 
 /**
  * Table model for constraints.

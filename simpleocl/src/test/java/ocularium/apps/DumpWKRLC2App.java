@@ -28,7 +28,7 @@ import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.model.IModel;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
-import ocularium.OculariumFacade;
+import ocularium.internal.OculariumFacade;
 
 /**
  * Simple exploratory test application to check out dump results from W&K R&L, Second Edition, Chapter 2.

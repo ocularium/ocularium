@@ -37,7 +37,7 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import com.change_vision.jude.api.inf.ui.IPluginActionDelegate;
 import com.change_vision.jude.api.inf.ui.IWindow;
 
-import ocularium.OculariumFacade;
+import ocularium.internal.OculariumFacade;
 
 /**
  * OSGi action to export constraints.
