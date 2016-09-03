@@ -22,10 +22,12 @@
  */
 package ocularium.actions;
 
-
+import java.awt.Component;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import com.change_vision.jude.api.inf.AstahAPI;
@@ -46,27 +48,33 @@ import ocularium.OculariumFacade;
 public class ExportOCLAction implements IPluginActionDelegate {
 
 	public Object run(IWindow window) throws UnExpectedException {
-	    try {
-	        AstahAPI api = AstahAPI.getAstahAPI();
-	        ProjectAccessor projectAccessor = api.getProjectAccessor();
-	        IModel project = projectAccessor.getProject();
-			OculariumFacade f = new OculariumFacade(project);			
+		try {
+			AstahAPI api = AstahAPI.getAstahAPI();
+			ProjectAccessor projectAccessor = api.getProjectAccessor();
+			IModel project = projectAccessor.getProject();
+			OculariumFacade f = new OculariumFacade(project);
+			JFileChooser chooser = new JFileChooser();
+			Component aComponent = AstahAPI.getAstahAPI().getViewManager().getMainFrame();
+			String x = OculariumFacade.getOclProjectPath(projectAccessor);
+			chooser.setCurrentDirectory(new File(x));
+			int returnVal = chooser.showSaveDialog(aComponent);
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				Writer actual = new FileWriter(OculariumFacade.getOclProjectPath(projectAccessor));
+				f.exportOCL(actual);
+				actual.close();
 
-			Writer actual = new FileWriter(OculariumFacade.getOclProjectPath(projectAccessor));
-			f.exportOCL(actual);
-			//projectAccessor.close();	
-			actual.close();
-
-	        JOptionPane.showMessageDialog(window.getParent(),"Export OCL Completed! See project folder for generated file.");
-	    } catch (ProjectNotFoundException e) {
-	        String message = "Project is not opened.Please open the project or create new project.";
-			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE); 
-	    } catch (Exception e) {
-	    	JOptionPane.showMessageDialog(window.getParent(), "Unexpected error has occurred.", "Alert", JOptionPane.ERROR_MESSAGE); 
-	        throw new UnExpectedException();
-	    }
-	    return null;
+				JOptionPane.showMessageDialog(window.getParent(),
+						"Export OCL Completed! See project folder for generated file.");
+			}
+		} catch (ProjectNotFoundException e) {
+			String message = "Project is not opened.Please open the project or create new project.";
+			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(window.getParent(), "Unexpected error has occurred.", "Alert",
+					JOptionPane.ERROR_MESSAGE);
+			throw new UnExpectedException();
+		}
+		return null;
 	}
-
 
 }
