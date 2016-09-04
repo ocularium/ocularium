@@ -1,78 +1,78 @@
 -- Made with ocularium (http://ocularium.github.io/ocularium)
 --
 
-context LoyaltyProgram
+context ocularium::examples::royalloyal::LoyaltyProgram
 def : getServicesByLevel(levelName: String): Set(Service) = levels->select( name = levelName ).availableServices->asSet()
 
-context LoyaltyProgram
+context ocularium::examples::royalloyal::LoyaltyProgram
 inv knownServiceLevel: levels-> includesAll(Membership.currentLevel)
 
-context LoyaltyProgram
+context ocularium::examples::royalloyal::LoyaltyProgram
 inv minServices: partners.deliveredServices->size() >= 1
 
-context LoyaltyProgram
+context ocularium::examples::royalloyal::LoyaltyProgram
 inv noAccounts: partners.deliveredServices->forAll( pointsEarned = 0 and pointsBurned = 0 ) implies Membership.account->isEmpty()
 
-context LoyaltyProgram
+context ocularium::examples::royalloyal::LoyaltyProgram
 inv firstLevel: levels->first().name = 'Silver'
 
-context LoyaltyProgram::levels
+context ocularium::examples::royalloyal::LoyaltyProgram::levels
 ordered
 
-context LoyaltyProgram::getServices(): Set
+context ocularium::examples::royalloyal::LoyaltyProgram::getServices(): Set
 body : partners.deliveredServices->asSet()
 
-context LoyaltyProgram::getServices(pp: ProgramPartner): void
+context ocularium::examples::royalloyal::LoyaltyProgram::getServices(pp: ProgramPartner): void
 body : if partners->includes(pp) then pp.deliveredServices else Set endif
 
-context Customer
+context ocularium::examples::royalloyal::Customer
 inv ofAge: age >= 18
 
-context Customer
+context ocularium::examples::royalloyal::Customer
 inv sizesAgree: programs->size() = cards->select( valid = true )->size()
 
-context Customer::age
+context ocularium::examples::royalloyal::Customer::age
 post : age = age@pre + 1
 
-context ProgramPartner
+context ocularium::examples::royalloyal::ProgramPartner
 inv nrOfParticipants: numberOfCustomers = programs.participants->asSet()->size()
 
-context ProgramPartner
+context ocularium::examples::royalloyal::ProgramPartner
 inv totalPoints: deliveredServices.transactions.points->sum() < 10,000
 
-context ProgramPartner
+context ocularium::examples::royalloyal::ProgramPartner
 inv totalPointsEarning: deliveredServices.transactions ->select( oclIsTypeOf( Earning ) ).points->sum() < 10,000
 
-context CustomerCard
+context ocularium::examples::royalloyal::CustomerCard
 inv checkDates: validFrom.isBefore(goodThru)
 
-context CustomerCard
+context ocularium::examples::royalloyal::CustomerCard
 inv ofAge: owner.age >= 18
 
-context CustomerCard
+context ocularium::examples::royalloyal::CustomerCard
 inv : let correctDate : Boolean = self.validFrom.isBefore(Date::now) and self.goodThru.isAfter(Date::now) in if valid then correctDate = false else correctDate = true endif
 
-context CustomerCard::valid
+context ocularium::examples::royalloyal::CustomerCard::valid
 init : 0
 
-context CustomerCard::printedName
+context ocularium::examples::royalloyal::CustomerCard::printedName
 derive : owner.title.concat(' ').concat(owner.name)
 
-context Service::upgradePointsEarned(amount: Integer): void
+context ocularium::examples::royalloyal::Service::upgradePointsEarned(amount: Integer): void
 post : calcPoints() = calcPoints@pre() + amount
 
-context LoyaltyAccount::points
+context ocularium::examples::royalloyal::LoyaltyAccount::points
 init : 0
 
-context LoyaltyAccount::isEmpty(): Boolean
+context ocularium::examples::royalloyal::LoyaltyAccount::isEmpty(): Boolean
 post : result = (points = 0)
 
-context Membership
+context ocularium::examples::royalloyal::Membership
 inv correctCard: participants.cards->includes(self.card)
 
-context Membership
+context ocularium::examples::royalloyal::Membership
 def : getCurrentLevelName() : String = currentLevel.name
 
-context Membership
+context ocularium::examples::royalloyal::Membership
 inv levelAndColor: currentLevel.name = 'Silver' implies card.color = Color::silver and currentLevel.name = 'Gold' implies card.color = Color::gold
 
