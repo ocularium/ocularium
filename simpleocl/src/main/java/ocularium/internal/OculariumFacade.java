@@ -232,26 +232,11 @@ public class OculariumFacade {
 
 		BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
 
-		//IPackage packageA = basicModelEditor.createPackage(project, "omg");
-
-		//IClass classA = basicModelEditor.createClass(packageA, "Company");
-		//classA.setDefinition("Definition of ClassA");
-		// Add an attribute to the class
-		//basicModelEditor.createAttribute(classA, "numberOfEmployees", "int");
-		// Add an operation to the class
-		//basicModelEditor.createOperation(classA, "operation0", "void");
-
-		// Create a class in the specified package
-		//IClass classB = basicModelEditor.createClass(packageA, "ClassB");
-
-		// Add an association between classes
-		//basicModelEditor.createAssociation(classA, classB, "association name", "classA end", "classB end");
 		IClass classA = (IClass)  prjAccessor.findElements(IClass.class, "Company")[0];
-;
+
 		basicModelEditor.createConstraint(classA, "inv enoughEmployees : self.numberOfEmployees > 50");
 		
 
-		// End transaction
 		TransactionManager.endTransaction();		
 	}
 

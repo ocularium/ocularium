@@ -23,6 +23,7 @@
 package ocularium;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -42,7 +43,7 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import ocularium.internal.OculariumFacade;
 
 /**
- * Sanity checking and automated testing for exporting opaque constraints.
+ * Sanity checking and automated testing for importing opaque constraints.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -50,7 +51,7 @@ import ocularium.internal.OculariumFacade;
 public class ImportActionTest {
 
 	@Test
-	public void testCreateElements() throws Exception {
+	public void testSanityCheckCreateElements() throws Exception {
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.create();
@@ -114,10 +115,48 @@ public class ImportActionTest {
 		r.close();
 		assertEquals(1, actual.size());
 		assertEquals("Company", actual.get(0).getName());
+		assertTrue(actual.get(0).getConstraints()[0].toString().startsWith("inv enoughEmployees:"));
 
 		// // Abort transaction
 		// TransactionManager.abortTransaction();
 
 	}
 
+	
+	@Test
+	public void testCreatePre() throws Exception {
+
+
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.create();
+
+		IModel project = prjAccessor.getProject();
+
+		TransactionManager.beginTransaction();
+
+		BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
+
+		IPackage packageA = basicModelEditor.createPackage(project, "omg");
+
+		IClass classA = basicModelEditor.createClass(packageA, "Company");
+		basicModelEditor.createAttribute(classA, "numberOfEmployees", "int");
+
+
+		TransactionManager.endTransaction();
+
+		Reader r = new StringReader("context omg::Company\npre enoughEmployees:self.numberOfEmployees > 50\n\n");
+
+		OculariumFacade f = new OculariumFacade(project);
+		f.importOCL(r);
+		List<IClass> actual = f.getConstrainedClasses();
+		prjAccessor.close();
+		r.close();
+		assertEquals(1, actual.size());
+		assertEquals("Company", actual.get(0).getName());
+		assertTrue(actual.get(0).getConstraints()[0].toString().startsWith("PRECONDITION:"));
+
+		// // Abort transaction
+		// TransactionManager.abortTransaction();
+
+	}	
 }
