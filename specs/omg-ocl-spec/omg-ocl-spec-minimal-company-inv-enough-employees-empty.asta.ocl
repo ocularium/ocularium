@@ -1,0 +1,6 @@
+-- Made with ocularium (http://ocularium.github.io/ocularium)
+--
+
+context Company
+inv enoughEmployees:self.numberOfEmployees > 50
+
