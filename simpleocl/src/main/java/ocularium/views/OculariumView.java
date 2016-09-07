@@ -24,11 +24,16 @@ package ocularium.views;
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.exception.ProjectNotFoundException;
@@ -43,17 +48,60 @@ import com.change_vision.jude.api.inf.ui.ISelectionListener;
 import ocularium.internal.OculariumFacade;
 
 /**
- * Panel for Ocularium plug-in.
+ * Constraint table panel.
+ * 
+ * Ocularium main user interface is a Astah API extra tab view. This panel has a
+ * single JTable component and the corresponding table model. There are two
+ * listeners: a row listener and a project event listener,
+ * 
+ * The row listener is notified when the use selects a row in the table view.
+ * Row listener acts to display the constrained model in Astah structure view.
+ * 
+ * Project event listener is notified when a change occurs on Astah model.
+ * Currently, all table data and structure is refreshed when any change occurs
+ * in the model. Note: The reason for this is to have the simplest
+ * implementation possible. Further development should try and implement a
+ * partial or incremental refresh in order to minimize changes in the user
+ * interface, as column width and selected row.
  * 
  * @author marco.mangan@gmail.com
- *
+ * 
+ * @see OclTableModel
+ * 
  */
 public class OculariumView extends JPanel implements IPluginExtraTabView {
 
 	/**
-	 * Listen for notifications from Astah projects. Project open and project
-	 * close cause a complete redraw. Project close resets view to an empty
-	 * list.
+	 * Listen from table selections.
+	 * 
+	 * Selected row element is show in Astah project view.
+	 * 
+	 * @author marco.mangan@gmail.com
+	 *
+	 */
+	private class RowListener implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			if (e.getValueIsAdjusting()) {
+				return;
+			}
+			int row = e.getFirstIndex();
+			System.out.println("==> RowListener::valueChanged");
+			System.out.println(row);
+			System.out.println(e);
+
+			IConstraint c = dm.getConstraintAtRow(row);
+			System.out.println(c);
+		}
+
+	}
+
+	/**
+	 * Listen for notifications from Astah projects.
+	 * 
+	 * Project open and project close cause a complete redraw. Project close
+	 * resets view to an empty list.
 	 * 
 	 * @author marco.mangan@gmail.com
 	 *
@@ -113,6 +161,29 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 
 		// addListener on activate?
 		addProjectEventListener();
+		table.getSelectionModel().addListSelectionListener(new RowListener());
+		// table.setRowSelectionAllowed(true);
+		ListSelectionModel listMod = table.getSelectionModel();
+		listMod.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		// listMod.addListSelectionListener(this);
+
+		// System.out.println("Adding listeners");
+		 table.addMouseListener(new MouseAdapter() {
+		 public void mouseClicked(MouseEvent e) {
+		 if (e.getClickCount() == 2) {
+		 JTable target = (JTable) e.getSource();
+		 int row = target.getSelectedRow();
+		 // int column = target.getSelectedColumn();
+		 // do some action
+		 if (row != -1) {
+		 System.out.println("==> MouseAdapter::mouseClicked");
+		 System.out.println(row);
+			IConstraint c = dm.getConstraintAtRow(row);
+			System.out.println(c);
+		 }
+		 }
+		 }
+		 });
 	}
 
 	/**
@@ -123,12 +194,13 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 			ProjectAccessor projectAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 			projectAccessor.addProjectEventListener(new OculariumProjectListener());
 		} catch (ClassNotFoundException e) {
-			e.getMessage();
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void addSelectionListener(ISelectionListener listener) {
+		// TODO: System.out.printf("Teste%n");
 	}
 
 	@Override
@@ -150,7 +222,6 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	 * 
 	 */
 	public void activated() {
-		// TODO: may need to call refresh...
 		refresh();
 	}
 
@@ -165,6 +236,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	 * Load all constraints into table model
 	 */
 	private void refresh() {
+		// TODO: could implement incremental refresh
 		AstahAPI api;
 		try {
 			api = AstahAPI.getAstahAPI();

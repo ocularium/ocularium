@@ -1,0 +1,32 @@
+
+
+" context  A::B ".split("\\s*context\\s*(\\S)$")
+
+
+" context  A::B ".split("context\\s*?")
+(java.lang.String[]) [ ,   A::B ]
+		
+		
+"context  A::B ".split("context\\s*+")
+(java.lang.String[]) [, A::B ]
+
+
+
+"   context  A::B(x: y) : r ".split("\\s*context\\s+\\S$")
+(java.lang.String[]) [   context  A::B(x: y) : r ]
+		
+		
+"   context  A::B(x: y) : r ".split("\\s*context\\s+")
+(java.lang.String[]) [, A::B(x: y) : r ]	
+		
+		
+"context  A::B(x: y) : r ".split("\\s*context\\s+")
+(java.lang.String[]) [, A::B(x: y) : r ]	
+		
+		
+		
+"context omg::Company".split("\\s*context\\s+")
+(java.lang.String[]) [, omg::Company]
+
+
+

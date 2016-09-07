@@ -22,6 +22,7 @@
  */
 package ocularium.internal;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -84,8 +85,8 @@ public class OculariumFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		assert project != null;		
+
+		assert project != null;
 		assert classList != null;
 
 		return classList;
@@ -135,7 +136,7 @@ public class OculariumFacade {
 				getAllClasses(nestedClasses, classList);
 			}
 		}
-		
+
 		assert project != null;
 		assert element != null;
 		assert classList != null;
@@ -156,8 +157,8 @@ public class OculariumFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		assert project != null;		
+
+		assert project != null;
 		assert classeList != null;
 
 		return classeList;
@@ -223,21 +224,60 @@ public class OculariumFacade {
 
 		importOCL0(input);
 	}
-	
+
 	private void importOCL0(Reader input) throws Exception {
+		BufferedReader br = new BufferedReader(input);
 
-		
+		String firstLine;
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-		TransactionManager.beginTransaction();
 
-		BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
+		while ((firstLine = br.readLine()) != null) {
+			firstLine = firstLine.trim();
+			if (firstLine.startsWith("--")) {
+				continue;
+			}
+			if (firstLine.isEmpty()) {
+				continue;
+			}
 
-		IClass classA = (IClass)  prjAccessor.findElements(IClass.class, "Company")[0];
+			String secondLine = br.readLine();
 
-		basicModelEditor.createConstraint(classA, "inv enoughEmployees : self.numberOfEmployees > 50");
-		
+			System.out.printf("firstLine:[%s]\n", firstLine);
+			String[] elementSplit = firstLine.split("\\s*context\\s+");
 
-		TransactionManager.endTransaction();		
+			System.out.printf("elementSplit:[%s]\n", Arrays.toString(elementSplit));
+
+			String elementName = elementSplit[1];
+			System.out.printf("elementName:[%s]\n", elementName);
+
+			TransactionManager.beginTransaction();
+
+			BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
+
+			// IClass classA = (IClass) prjAccessor.findElements(IClass.class,
+			// "Company")[0];
+			// TODO: qualified element name
+			// split using ::
+			String[] cleanName = elementName.split("\\(");
+
+			String[] qualifiedName = cleanName[0].split("::");
+			System.out.printf("qualifiedName:[%s]\n", Arrays.toString(qualifiedName));
+
+			INamedElement classA = prjAccessor.findElements(IClass.class, qualifiedName[qualifiedName.length-1])[0];
+
+			System.out.println(firstLine);
+			System.out.println(secondLine);
+
+			// basicModelEditor.createConstraint(classA, "inv enoughEmployees :
+			// self.numberOfEmployees > 50");
+			if (secondLine.startsWith("pre")) {
+				basicModelEditor.createConstraint(classA, "PRECONDITION: " + secondLine);
+			} else {
+				basicModelEditor.createConstraint(classA, secondLine);
+			}
+			TransactionManager.endTransaction();
+
+		}
 	}
 
 	/**

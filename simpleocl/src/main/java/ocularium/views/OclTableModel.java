@@ -49,11 +49,37 @@ public class OclTableModel extends AbstractTableModel {
 	 */
 	private static final List<IConstraint> EMPTY_DATA = new ArrayList<IConstraint>();
 
-	/*
+	/**
 	 * 
 	 */
-	List<IConstraint> data = EMPTY_DATA;
+	private List<IConstraint> data = EMPTY_DATA;
 
+	/**
+	 * 
+	 * @param cs
+	 */
+	public void setData(List<IConstraint> cs) {
+		data = cs;
+		fireTableStructureChanged();
+	}
+
+	/**
+	 * 
+	 */
+	public void resetData() {
+		data = EMPTY_DATA;
+	}
+	
+	/**
+	 * 
+	 * @param rowIndex
+	 * @return
+	 */
+	public IConstraint getConstraintAtRow(int rowIndex) {
+		IConstraint c = data.get(rowIndex);
+		return c;
+	}	
+	
 	@Override
 	public String getColumnName(int column) {
 		switch (column) {
@@ -88,20 +114,5 @@ public class OclTableModel extends AbstractTableModel {
 		}
 		return "##";
 	}
-
-	/**
-	 * 
-	 * @param cs
-	 */
-	public void setData(List<IConstraint> cs) {
-		data = cs;
-		fireTableStructureChanged();
-	}
-
-	/**
-	 * 
-	 */
-	public void resetData() {
-		data = EMPTY_DATA;
-	}
+	
 }
