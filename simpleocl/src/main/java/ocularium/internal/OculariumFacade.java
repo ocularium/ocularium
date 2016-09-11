@@ -223,9 +223,15 @@ public class OculariumFacade {
 		assert input != null;
 
 		importOCL0(input);
+		
+		assert project != null;
+		assert input != null;		
 	}
 
 	private void importOCL0(Reader input) throws Exception {
+		assert project != null;
+		assert input != null;
+
 		BufferedReader br = new BufferedReader(input);
 
 		String firstLine;
