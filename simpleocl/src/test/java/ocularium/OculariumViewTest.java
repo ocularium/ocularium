@@ -54,8 +54,8 @@ public class OculariumViewTest {
 	public void initModel() {
 		OculariumView v = new OculariumView();
 		m = v.getModel();
-	}	
-	
+	}
+
 	@Test
 	public void testEmptyModelHasZeroRows() throws Exception {
 		initModel();
@@ -67,8 +67,6 @@ public class OculariumViewTest {
 		initModel();
 		assertEquals(2, m.getColumnCount());
 	}
-
-
 
 	@Test
 	public void testModelLoadFromOpenProject() throws Exception {

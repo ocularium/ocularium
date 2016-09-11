@@ -60,7 +60,7 @@ public class ImportOCLAction implements IPluginActionDelegate {
 			chooser.setCurrentDirectory(new File(x));
 			int returnVal = chooser.showOpenDialog(aComponent);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File file = chooser.getSelectedFile();
+				File file = chooser.getSelectedFile();
 
 				Reader r = new FileReader(file);
 				f.importOCL(r);

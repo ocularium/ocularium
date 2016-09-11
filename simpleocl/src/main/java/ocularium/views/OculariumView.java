@@ -225,7 +225,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 			ProjectAccessor projectAccessor = api.getProjectAccessor();
 			IModel project = projectAccessor.getProject();
 			OculariumFacade f = new OculariumFacade(project);
-			List<IConstraint> cs = f.getConstraints();
+			List<IConstraint> cs = f.getOclConstraints();
 			dm.setData(cs);
 
 		} catch (ClassNotFoundException e1) {

@@ -31,7 +31,8 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 import ocularium.internal.OculariumFacade;
 
 /**
- * Simple exploratory test application to check out dump results from W&K R&L, Second Edition, Chapter 2.
+ * Simple exploratory test application to check out dump results from W&K R&L,
+ * Second Edition, Chapter 2.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -40,31 +41,27 @@ public class DumpWKRLC2App {
 	private static final String WK_C2_FILE = "../specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
 	public static void main(String[] args) throws Exception {
-		
 
 		System.out.println("Opening project...");
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(WK_C2_FILE, true, false, true);
-		
+
 		System.out.println("Creating file...");
-		FileWriter fw = new FileWriter(OculariumFacade.getOclProjectPath(prjAccessor)+ ".txt");
-        System.out.println(prjAccessor.getProjectPath());
+		FileWriter fw = new FileWriter(OculariumFacade.getOclProjectPath(prjAccessor) + ".txt");
+		System.out.println(prjAccessor.getProjectPath());
 
 		IModel project = prjAccessor.getProject();
 		System.out.println("Running facade...");
 
 		OculariumFacade f = new OculariumFacade(project);
 		System.out.println("Dumping constraints...");
-		
+
 		f.dumpOCL(fw);
 		prjAccessor.close();
 		fw.close();
 		System.out.println("Done.");
 
-
 	}
-
-
 
 }

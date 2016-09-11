@@ -31,7 +31,9 @@ import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IParameter;
 
 /**
- * A constraint formatter inspired by DateFormatter from Java API.
+ * A constraint formatter.
+ * 
+ * This formatter is similar to NumberFormat and DateFormat from Java API.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -50,7 +52,7 @@ public class ConstraintFormatter {
 	public static ConstraintFormatter getConstraintFormatter() {
 		return DEFAULT_FORMATTER;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -69,6 +71,7 @@ public class ConstraintFormatter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		assert iConstraint != null;
 		return sb.toString();
 
 	}
@@ -78,7 +81,9 @@ public class ConstraintFormatter {
 	 * @param iConstraint
 	 */
 	public void setConstraint(IConstraint iConstraint) {
+		assert iConstraint != null;
 		this.iConstraint = iConstraint;
+		assert this.iConstraint != null;
 
 	}
 
@@ -144,7 +149,6 @@ public class ConstraintFormatter {
 			for (IParameter iParameter : ps) {
 				if (!firstParam) {
 					sb.append(", ");
-
 				}
 				String paramName = iParameter.getName().toString();
 				String paramType = iParameter.getType().toString();
@@ -187,6 +191,18 @@ public class ConstraintFormatter {
 
 		sb.append(spec);
 		return sb.toString();
+	}
+
+	public boolean isOcl() {
+		assert iConstraint != null;
+
+		String starts[] = { "inv", "def", "init", "derive", "pre", "post", "body" };
+		String spec = getSpecification().trim().toLowerCase();
+		for (String s : starts) {
+			if (spec.startsWith(s))
+				return true;
+		}
+		return false;
 	}
 
 }

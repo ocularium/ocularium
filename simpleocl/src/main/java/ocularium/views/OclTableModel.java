@@ -69,7 +69,7 @@ public class OclTableModel extends AbstractTableModel {
 	public void resetData() {
 		data = EMPTY_DATA;
 	}
-	
+
 	/**
 	 * 
 	 * @param rowIndex
@@ -78,8 +78,8 @@ public class OclTableModel extends AbstractTableModel {
 	public IConstraint getConstraintAtRow(int rowIndex) {
 		IConstraint c = data.get(rowIndex);
 		return c;
-	}	
-	
+	}
+
 	@Override
 	public String getColumnName(int column) {
 		switch (column) {
@@ -90,7 +90,7 @@ public class OclTableModel extends AbstractTableModel {
 		}
 		return "@@";
 	}
-	
+
 	@Override
 	public int getRowCount() {
 		return data.size();
@@ -114,5 +114,5 @@ public class OclTableModel extends AbstractTableModel {
 		}
 		return "##";
 	}
-	
+
 }

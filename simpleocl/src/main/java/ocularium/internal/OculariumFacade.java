@@ -45,7 +45,12 @@ import com.change_vision.jude.api.inf.model.IPackage;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
 /**
- * Ocularium Façade and main class.
+ * Ocularium Façade.
+ * 
+ * Methods importOCL() and exportOCL() process OCL constraints and UML elements.
+ * 
+ * A simple constraint format is adopted, within a subset of OCL, fully
+ * qualified context names and single line constraint specifications.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -53,13 +58,16 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
 public class OculariumFacade {
 
 	/**
-	 * 
+	 * An Astah project containing UML elements and OCL constraints.
 	 */
 	private IModel project;
 
 	/**
 	 * 
+	 * Ocularium plugin actions and views use this façade.
+	 * 
 	 * @param project
+	 *            an Astah project containing UML elements and OCL constraints.
 	 */
 	public OculariumFacade(IModel project) {
 		super();
@@ -69,6 +77,8 @@ public class OculariumFacade {
 	}
 
 	/**
+	 * Note: testing method. Returns all classes with any constraint
+	 * declaration.
 	 * 
 	 * @return
 	 */
@@ -77,12 +87,10 @@ public class OculariumFacade {
 
 		List<IClass> classList = new ArrayList<IClass>();
 		try {
-			getAllClasses(project, classList);
+			getConstrainedClasses0(project, classList);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ProjectNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -92,16 +100,24 @@ public class OculariumFacade {
 		return classList;
 	}
 
-	// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
-	private void getAllClasses(INamedElement element, List<IClass> classList)
+	/**
+	 * 
+	 * @param element
+	 * @param classList
+	 * @throws ClassNotFoundException
+	 * @throws ProjectNotFoundException
+	 */
+	private void getConstrainedClasses0(INamedElement element, List<IClass> classList)
 			throws ClassNotFoundException, ProjectNotFoundException {
+		// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
+
 		assert project != null;
 		assert element != null;
 		assert classList != null;
 
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
-				getAllClasses(ownedNamedElement, classList);
+				getConstrainedClasses0(ownedNamedElement, classList);
 			}
 		} else if (element instanceof IClass) {
 			//
@@ -133,7 +149,7 @@ public class OculariumFacade {
 			}
 
 			for (IClass nestedClasses : c.getNestedClasses()) {
-				getAllClasses(nestedClasses, classList);
+				getConstrainedClasses0(nestedClasses, classList);
 			}
 		}
 
@@ -143,13 +159,19 @@ public class OculariumFacade {
 	}
 
 	/**
+	 * Returns all OCL constraints from the model.
+	 * 
+	 * An OCL constraint starts with one of these OCL keywords: init, inv, def,
+	 * derive, pre, post, body.
+	 * 
+	 * @return
 	 */
-	public List<IConstraint> getConstraints() {
+	public List<IConstraint> getOclConstraints() {
 		assert project != null;
 
 		List<IConstraint> classeList = new ArrayList<IConstraint>();
 		try {
-			getAllConstraints(project, classeList);
+			getOclConstraints0(project, classeList);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,16 +186,26 @@ public class OculariumFacade {
 		return classeList;
 	}
 
-	// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
-	private void getAllConstraints(INamedElement element, List<IConstraint> constraintList)
+	/**
+	 * 
+	 * @param element
+	 * @param constraintList
+	 * @throws ClassNotFoundException
+	 * @throws ProjectNotFoundException
+	 */
+	private void getOclConstraints0(INamedElement element, List<IConstraint> constraintList)
 			throws ClassNotFoundException, ProjectNotFoundException {
+		// http://astah.net/tutorials/plug-ins/plugin_tutorial_en/html/example.html
 		assert project != null;
 		assert element != null;
 		assert constraintList != null;
 
+		// avoid processing no-OCL constraints
+		// init, derive, def, inv, pre, post, body
+
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
-				getAllConstraints(ownedNamedElement, constraintList);
+				getOclConstraints0(ownedNamedElement, constraintList);
 			}
 		} else if (element instanceof IClass) {
 			//
@@ -182,7 +214,11 @@ public class OculariumFacade {
 			IConstraint[] ccs = c.getConstraints();
 			if (ccs.length > 0) {
 				for (IConstraint v : ccs) {
-					constraintList.add(v);
+					if (hasOclStart(v)) {
+						constraintList.add(v);
+					} // else {
+						// System.out.println("Class constraint removed.");
+						// }
 				}
 			}
 
@@ -191,7 +227,12 @@ public class OculariumFacade {
 
 				if (acs.length > 0) {
 					for (IConstraint v : acs) {
-						constraintList.add(v);
+						if (hasOclStart(v)) {
+							constraintList.add(v);
+						} // else {
+							// System.out.println("Attribute constraint
+							// removed.");
+							// }
 					}
 
 				}
@@ -202,15 +243,30 @@ public class OculariumFacade {
 
 				if (ocs.length > 0) {
 					for (IConstraint v : ocs) {
-						constraintList.add(v);
+						if (hasOclStart(v)) {
+							constraintList.add(v);
+						}
 					}
 				}
 			}
 
 			for (IClass nestedClasses : ((IClass) element).getNestedClasses()) {
-				getAllConstraints(nestedClasses, constraintList);
+				getOclConstraints0(nestedClasses, constraintList);
 			}
 		}
+	}
+
+	/**
+	 * @param v
+	 * @return
+	 */
+	public boolean hasOclStart(IConstraint v) {
+
+		ConstraintFormatter cf = ConstraintFormatter.getConstraintFormatter();
+
+		cf.setConstraint(v);
+		// return !v.getSpecification().equals("ordered");
+		return cf.isOcl();
 	}
 
 	/**
@@ -223,11 +279,16 @@ public class OculariumFacade {
 		assert input != null;
 
 		importOCL0(input);
-		
+
 		assert project != null;
-		assert input != null;		
+		assert input != null;
 	}
 
+	/**
+	 * 
+	 * @param input
+	 * @throws Exception
+	 */
 	private void importOCL0(Reader input) throws Exception {
 		assert project != null;
 		assert input != null;
@@ -269,7 +330,7 @@ public class OculariumFacade {
 			String[] qualifiedName = cleanName[0].split("::");
 			System.out.printf("qualifiedName:[%s]\n", Arrays.toString(qualifiedName));
 
-			INamedElement classA = prjAccessor.findElements(IClass.class, qualifiedName[qualifiedName.length-1])[0];
+			INamedElement classA = prjAccessor.findElements(IClass.class, qualifiedName[qualifiedName.length - 1])[0];
 
 			System.out.println(firstLine);
 			System.out.println(secondLine);
@@ -313,7 +374,7 @@ public class OculariumFacade {
 		assert project != null;
 		assert output != null;
 
-		List<IConstraint> allConstraints = getConstraints();
+		List<IConstraint> allConstraints = getOclConstraints();
 		ConstraintFormatter cf = ConstraintFormatter.getConstraintFormatter();
 
 		for (IConstraint iConstraint : allConstraints) {
@@ -333,7 +394,7 @@ public class OculariumFacade {
 		assert project != null;
 		assert output != null;
 
-		List<IConstraint> actual = getConstraints();
+		List<IConstraint> actual = getOclConstraints();
 		for (IConstraint iConstraint : actual) {
 			output.write("\n             alias1: [" + iConstraint.getAlias1() + "]");
 			output.write("\n             alias2: [" + iConstraint.getAlias2() + "]");

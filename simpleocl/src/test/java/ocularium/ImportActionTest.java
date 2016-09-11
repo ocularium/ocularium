@@ -88,7 +88,6 @@ public class ImportActionTest {
 	@Test
 	public void testCreateInvariant() throws Exception {
 
-
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.create();
 
@@ -102,7 +101,6 @@ public class ImportActionTest {
 
 		IClass classA = basicModelEditor.createClass(packageA, "Company");
 		basicModelEditor.createAttribute(classA, "numberOfEmployees", "int");
-
 
 		TransactionManager.endTransaction();
 
@@ -122,10 +120,8 @@ public class ImportActionTest {
 
 	}
 
-	
 	@Test
 	public void testCreatePre() throws Exception {
-
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.create();
@@ -140,7 +136,6 @@ public class ImportActionTest {
 
 		IClass classA = basicModelEditor.createClass(packageA, "Company");
 		basicModelEditor.createAttribute(classA, "numberOfEmployees", "int");
-
 
 		TransactionManager.endTransaction();
 
@@ -158,5 +153,5 @@ public class ImportActionTest {
 		// // Abort transaction
 		// TransactionManager.abortTransaction();
 
-	}	
+	}
 }

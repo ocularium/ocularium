@@ -105,7 +105,7 @@ public class ExportActionTest {
 		prjAccessor.open(COMPANY_FILE, true, false, true);
 		IModel project = prjAccessor.getProject();
 		OculariumFacade f = new OculariumFacade(project);
-		List<IConstraint> actual = f.getConstraints();
+		List<IConstraint> actual = f.getOclConstraints();
 		prjAccessor.close();
 		assertEquals(1, actual.size());
 		assertEquals("inv enoughEmployees:self.numberOfEmployees > 50", actual.get(0).toString());
@@ -129,7 +129,7 @@ public class ExportActionTest {
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(COMPANY_FILE, true, false, true);
 		String actual = Paths.get(OculariumFacade.getOclProjectPath(prjAccessor)).toAbsolutePath().toString();
-		
+
 		String expected = Paths.get(COMPANY_FILE + ".ocl").toAbsolutePath().toString();
 		prjAccessor.close();
 		assertEquals(expected, actual);

@@ -16,9 +16,6 @@ inv noAccounts: partners.deliveredServices->forAll( pointsEarned = 0 and pointsB
 context ocularium::examples::royalloyal::LoyaltyProgram
 inv firstLevel: levels->first().name = 'Silver'
 
-context ocularium::examples::royalloyal::LoyaltyProgram::levels
-ordered
-
 context ocularium::examples::royalloyal::LoyaltyProgram::getServices(): Set
 body : partners.deliveredServices->asSet()
 
