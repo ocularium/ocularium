@@ -200,9 +200,6 @@ public class OculariumFacade {
 		assert element != null;
 		assert constraintList != null;
 
-		// avoid processing no-OCL constraints
-		// init, derive, def, inv, pre, post, body
-
 		if (element instanceof IPackage) {
 			for (INamedElement ownedNamedElement : ((IPackage) element).getOwnedElements()) {
 				getOclConstraints0(ownedNamedElement, constraintList);
@@ -216,9 +213,7 @@ public class OculariumFacade {
 				for (IConstraint v : ccs) {
 					if (hasOclStart(v)) {
 						constraintList.add(v);
-					} // else {
-						// System.out.println("Class constraint removed.");
-						// }
+					} 
 				}
 			}
 
@@ -229,10 +224,7 @@ public class OculariumFacade {
 					for (IConstraint v : acs) {
 						if (hasOclStart(v)) {
 							constraintList.add(v);
-						} // else {
-							// System.out.println("Attribute constraint
-							// removed.");
-							// }
+						} 
 					}
 
 				}
@@ -265,7 +257,6 @@ public class OculariumFacade {
 		ConstraintFormatter cf = ConstraintFormatter.getConstraintFormatter();
 
 		cf.setConstraint(v);
-		// return !v.getSpecification().equals("ordered");
 		return cf.isOcl();
 	}
 
@@ -321,22 +312,17 @@ public class OculariumFacade {
 
 			BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
 
-			// IClass classA = (IClass) prjAccessor.findElements(IClass.class,
-			// "Company")[0];
-			// TODO: qualified element name
-			// split using ::
 			String[] cleanName = elementName.split("\\(");
 
 			String[] qualifiedName = cleanName[0].split("::");
 			System.out.printf("qualifiedName:[%s]\n", Arrays.toString(qualifiedName));
 
+			// FIXME: getLevel
 			INamedElement classA = prjAccessor.findElements(IClass.class, qualifiedName[qualifiedName.length - 1])[0];
 
 			System.out.println(firstLine);
 			System.out.println(secondLine);
 
-			// basicModelEditor.createConstraint(classA, "inv enoughEmployees :
-			// self.numberOfEmployees > 50");
 			if (secondLine.startsWith("pre")) {
 				basicModelEditor.createConstraint(classA, "PRECONDITION: " + secondLine);
 			} else {
@@ -399,16 +385,10 @@ public class OculariumFacade {
 			output.write("\n             alias1: [" + iConstraint.getAlias1() + "]");
 			output.write("\n             alias2: [" + iConstraint.getAlias2() + "]");
 			output.write("\n         definition: [" + iConstraint.getDefinition() + "]");
-			// name
-			// nameSpace
 			output.write("\n                 id: [" + iConstraint.getId() + "]");
 			output.write("\n               name: [" + iConstraint.getName() + "]");
 			output.write("\n      specification: [" + iConstraint.getSpecification() + "]");
-			// tagged value
 			output.write("\n           type mod: [" + iConstraint.getTypeModifier() + "]");
-			//
-			// output.write("\n client dep: [" +
-			// iConstraint.getClientDependencies().toString()+ "]");
 			output.write("\n           comments: [" + Arrays.toString(iConstraint.getComments()) + "]");
 			output.write("\nconstrained element: [" + Arrays.toString(iConstraint.getConstrainedElement()) + "]");
 			output.write("\n        constraints: [" + Arrays.toString(iConstraint.getConstraints()) + "]");

@@ -193,6 +193,10 @@ public class ConstraintFormatter {
 		return sb.toString();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isOcl() {
 		assert iConstraint != null;
 

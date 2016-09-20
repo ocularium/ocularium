@@ -40,6 +40,7 @@ import ocularium.views.OculariumView;
  *
  */
 public class OculariumViewTest {
+	
 	/**
 	 * 
 	 */

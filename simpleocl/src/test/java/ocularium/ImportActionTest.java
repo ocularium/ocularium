@@ -79,10 +79,6 @@ public class ImportActionTest {
 		List<IClass> actual = f.getConstrainedClasses();
 		prjAccessor.close();
 		assertEquals(0, actual.size());
-
-		// // Abort transaction
-		// TransactionManager.abortTransaction();
-
 	}
 
 	@Test
@@ -114,10 +110,6 @@ public class ImportActionTest {
 		assertEquals(1, actual.size());
 		assertEquals("Company", actual.get(0).getName());
 		assertTrue(actual.get(0).getConstraints()[0].toString().startsWith("inv enoughEmployees:"));
-
-		// // Abort transaction
-		// TransactionManager.abortTransaction();
-
 	}
 
 	@Test
@@ -149,9 +141,5 @@ public class ImportActionTest {
 		assertEquals(1, actual.size());
 		assertEquals("Company", actual.get(0).getName());
 		assertTrue(actual.get(0).getConstraints()[0].toString().startsWith("PRECONDITION:"));
-
-		// // Abort transaction
-		// TransactionManager.abortTransaction();
-
 	}
 }
