@@ -50,6 +50,8 @@ import ocularium.internal.OculariumFacade;
  */
 public class ImportActionTest {
 
+	private static final String WK_C2_EMPTY_FILE = "../specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2-empty.asta";
+
 	@Test
 	public void testSanityCheckCreateElements() throws Exception {
 
@@ -142,4 +144,45 @@ public class ImportActionTest {
 		assertEquals("Company", actual.get(0).getName());
 		assertTrue(actual.get(0).getConstraints()[0].toString().startsWith("PRECONDITION:"));
 	}
+
+	@Test
+	public void testWkisEmpty() throws Exception {
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_EMPTY_FILE, true, false, true);
+		IModel project = prjAccessor.getProject();
+		OculariumFacade f = new OculariumFacade(project);
+		List<IClass> actual = f.getConstrainedClasses();
+		prjAccessor.close();
+
+		assertEquals(0, actual.size());
+	}
+
+	@Test
+	public void testWkHasPolimorphicElement() throws Exception {
+		ProjectAccessor prjAccessor = null;
+		Reader r = null;
+		try {
+			prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+			prjAccessor.open(WK_C2_EMPTY_FILE, true, false, true);
+			IModel project = prjAccessor.getProject();
+			OculariumFacade f = new OculariumFacade(project);
+			r = new StringReader(
+					"context ocularium::examples::royalloyal::LoyaltyProgram::getServices(): Set \n body : partners.deliveredServices->asSet()");
+			f.importOCL(r);
+			List<IClass> actual = f.getConstrainedClasses();
+			assertEquals(1, actual.size());
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (prjAccessor != null)
+				prjAccessor.close();
+			try {
+				if (r != null)
+					r.close();
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	}
+
 }
