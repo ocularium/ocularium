@@ -319,18 +319,18 @@ public class OculariumFacade {
 
 			// FIXME: getLevel
 			INamedElement classA;
-			
+
 			// FIXME: IClass... Should be another type... IOperation
-			INamedElement[] elements = prjAccessor.findElements(IOperation.class, qualifiedName[qualifiedName.length - 1]);
+			INamedElement[] elements = prjAccessor.findElements(IClass.class,
+					qualifiedName[qualifiedName.length - 1]);
 			System.out.printf("elements:[%s]\n", Arrays.toString(elements));
 			if (elements.length == 0) {
 				INamedElement[] elements2 = prjAccessor.findElements(IClass.class,
 						qualifiedName[qualifiedName.length - 2]);
 				System.out.printf("elements2:[%s]\n", Arrays.toString(elements2));
-				 classA = elements2[0];
-
+				classA = elements2[0];
 			} else {
-			 classA = elements[0];
+				classA = elements[0];
 			}
 			System.out.println(firstLine);
 			System.out.println(secondLine);
@@ -403,7 +403,8 @@ public class OculariumFacade {
 			output.write("\n           type mod: [" + iConstraint.getTypeModifier() + "]");
 			output.write("\n           comments: [" + Arrays.toString(iConstraint.getComments()) + "]");
 			output.write("\nconstrained element: [" + Arrays.toString(iConstraint.getConstrainedElement()) + "]");
-			output.write("\nconstrained element type: [" + iConstraint.getConstrainedElement()[0].getClass().getName() + "]");
+			output.write("\nconstrained element type: [" + iConstraint.getConstrainedElement()[0].getClass().getName()
+					+ "]");
 			output.write("\n        constraints: [" + Arrays.toString(iConstraint.getConstraints()) + "]");
 
 			output.write("\n");
