@@ -37,6 +37,8 @@ import com.change_vision.jude.api.inf.editor.ModelEditorFactory;
 import com.change_vision.jude.api.inf.editor.TransactionManager;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IModel;
+import com.change_vision.jude.api.inf.model.INamedElement;
+import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IPackage;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
@@ -51,6 +53,7 @@ import ocularium.internal.OculariumFacade;
 public class ImportActionTest {
 
 	private static final String WK_C2_EMPTY_FILE = "../specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2-empty.asta";
+	private static final String WK_C2_FILE = "../specs/royalloyal/mangan-warmer-kleppe-royal-loyal-chapter-2.asta";
 
 	@Test
 	public void testSanityCheckCreateElements() throws Exception {
@@ -83,6 +86,57 @@ public class ImportActionTest {
 		assertEquals(0, actual.size());
 	}
 
+	@Test
+	public void testSanityCheckFindClassByName() throws Exception {
+
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_FILE, true, false, true);
+		INamedElement[] elements = prjAccessor.findElements(IClass.class,
+				"LoyaltyProgram");
+		prjAccessor.close();
+		assertEquals(1, elements.length);
+		assertEquals("LoyaltyProgram", elements[0].getName());
+		
+	}	
+	
+	@Test
+	public void testSanityCheckFindOperationByName() throws Exception {
+
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_FILE, true, false, true);
+		INamedElement[] elements = prjAccessor.findElements(IOperation.class,
+				"getServices");
+		prjAccessor.close();
+		assertEquals(2, elements.length);
+		assertEquals("getServices", elements[0].getName());
+		assertEquals("getServices", elements[1].getName());		
+	}	
+	
+	@Test
+	public void testSanityCheckFindOperationByNameAsNamed() throws Exception {
+
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_FILE, true, false, true);
+		INamedElement[] elements = prjAccessor.findElements(INamedElement.class,
+				"getServices");
+		prjAccessor.close();
+		assertEquals(2, elements.length);
+		assertEquals("getServices", elements[0].getName());
+		assertEquals("getServices", elements[1].getName());		
+	}	
+	
+	@Test
+	public void testSanityCheckFindClassByNameAsNamed() throws Exception {
+
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(WK_C2_FILE, true, false, true);
+		INamedElement[] elements = prjAccessor.findElements(INamedElement.class,
+				"LoyaltyProgram");
+		prjAccessor.close();
+		assertEquals(1, elements.length);
+		assertEquals("LoyaltyProgram", elements[0].getName());
+	}	
+	
 	@Test
 	public void testCreateInvariant() throws Exception {
 

@@ -313,6 +313,9 @@ public class OculariumFacade {
 			BasicModelEditor basicModelEditor = ModelEditorFactory.getBasicModelEditor();
 
 			String[] cleanName = elementName.split("\\(");
+			
+			// Must check class, operation, relation....
+
 
 			String[] qualifiedName = cleanName[0].split("::");
 			System.out.printf("qualifiedName:[%s]\n", Arrays.toString(qualifiedName));
