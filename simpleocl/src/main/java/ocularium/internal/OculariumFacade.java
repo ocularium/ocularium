@@ -314,7 +314,15 @@ public class OculariumFacade {
 
 			String[] cleanName = elementName.split("\\(");
 			
-			// Must check class, operation, relation....
+			// The element may be from different types, all interfaces
+			// from a common generalized interface named INamedElement
+			//
+			// If there is a is a parenthesis inside the name
+			// it may indicate:
+			// IOperation or IMessage.
+			// 
+			// Otherwise, it may indicate:
+			// IAssociation, IAttribute, or IClass
 
 
 			String[] qualifiedName = cleanName[0].split("::");
@@ -324,15 +332,16 @@ public class OculariumFacade {
 			INamedElement classA;
 
 			// FIXME: IClass... Should be another type... IOperation
-			INamedElement[] elements = prjAccessor.findElements(IClass.class,
+			INamedElement[] elements = prjAccessor.findElements(INamedElement.class,
 					qualifiedName[qualifiedName.length - 1]);
 			System.out.printf("elements:[%s]\n", Arrays.toString(elements));
-			if (elements.length == 0) {
-				INamedElement[] elements2 = prjAccessor.findElements(IClass.class,
-						qualifiedName[qualifiedName.length - 2]);
-				System.out.printf("elements2:[%s]\n", Arrays.toString(elements2));
-				classA = elements2[0];
+			
+			assert elements.length > 0; // At least one element was found
+			
+			if (elements.length == 1) {
+				classA = elements[0];
 			} else {
+				// more than one element was found, it may be and operation
 				classA = elements[0];
 			}
 			System.out.println(firstLine);
