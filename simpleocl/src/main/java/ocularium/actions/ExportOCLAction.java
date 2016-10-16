@@ -58,11 +58,11 @@ public class ExportOCLAction implements IPluginActionDelegate {
 			OculariumFacade f = new OculariumFacade(project);
 			JFileChooser chooser = new JFileChooser();
 			Component aComponent = AstahAPI.getAstahAPI().getViewManager().getMainFrame();
-			String x = OculariumFacade.getOclProjectPath(projectAccessor);
-			chooser.setCurrentDirectory(new File(x));
+			String projectDirectory = OculariumFacade.getOclProjectPath(projectAccessor);
+			chooser.setCurrentDirectory(new File(projectDirectory));
 			int returnVal = chooser.showSaveDialog(aComponent);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				Writer actual = new FileWriter(OculariumFacade.getOclProjectPath(projectAccessor));
+				Writer actual = new FileWriter(chooser.getSelectedFile());
 				f.exportOCL(actual);
 				actual.close();
 
