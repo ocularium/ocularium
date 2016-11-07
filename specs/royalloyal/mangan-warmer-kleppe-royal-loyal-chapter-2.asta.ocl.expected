@@ -75,6 +75,3 @@ def : getCurrentLevelName() : String = currentLevel.name
 
 context ocularium::examples::royalloyal::Membership
 inv levelAndColor: currentLevel.name = 'Silver' implies card.color = Color::silver and currentLevel.name = 'Gold' implies card.color = Color::gold
-
-
-
