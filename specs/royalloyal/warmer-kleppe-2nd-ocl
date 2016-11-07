@@ -1,0 +1,78 @@
+2.2.1
+context LoyaltyAccount::points init : 0
+context CustomerCard::valid init : true
+context CustomerCard::printedName derive : owner.title.concat(' ').concat(owner.name)
+2.2.2
+context LoyaltyProgram::getServices(): Set(Service) body : partners.deliveredServices->asSet()
+context LoyaltyProgram::getServices(pp: ProgramPartner)
+: Set(Service) body : if partners->includes(pp)
+then pp.deliveredServices
+else Set
+endif
+2.2.3
+context LoyaltyAccount def : turnover : Real = transactions.amount->sum()
+context LoyaltyProgram def : getServicesByLevel(levelName: String): Set(Service)
+= levels->select( name = levelName ).availableServices->asSet()
+2.3.1
+context Customer inv ofAge: age >= 18
+2.3.2
+context CustomerCard inv checkDates: validFrom.isBefore(goodThru)
+2.3.3
+context CustomerCard inv ofAge: owner.age >= 18
+2.3.4
+context LoyaltyProgram inv knownServiceLevel: levels->
+includesAll(Membership.currentLevel)
+context Membership inv correctCard: participants.cards->includes(self.card)
+context Membership def : getCurrentLevelName() : String = currentLevel.name
+2.3.5
+context Membership inv levelAndColor:
+currentLevel.name = 'Silver' implies card.color = Color::silver
+and
+currentLevel.name = 'Gold' implies card.color = Color::gold
+2.4.1
+context LoyaltyProgram inv minServices: partners.deliveredServices->size() >= 1
+context Customer inv sizesAgree:
+programs->size() = cards->select( valid = true )->size()
+context LoyaltyProgram inv noAccounts: partners.deliveredServices->forAll(
+pointsEarned = 0 and pointsBurned = 0 )
+implies Membership.account->isEmpty()
+# context LoyaltyProgram inv noAccounts: forAll( partners... )
+2.4.2
+#context ProgramPartner inv nrOfParticipants:
+#numberOfCustomers = programs.participants->size()
+context ProgramPartner inv nrOfParticipants:
+numberOfCustomers = programs.participants->asSet()->size()
+context LoyaltyProgram inv firstLevel: levels->first().name = 'Silver'
+2.5.1
+context LoyaltyAccount::isEmpty(): Boolean pre : -- none post : result = (points = 0)
+2.5.2
+context Customer::birthdayHappens() post : age = age@pre + 1
+context Service::upgradePointsEarned(amount: Integer) post : calcPoints() = calcPoints@pre() + amount
+2.5.3
+context Subject::hasChanged() post : observer^update(12, 14)
+2.6
+context ProgramPartner inv totalPoints:
+deliveredServices.transactions.points->sum() < 10,000
+context ProgramPartner inv totalPointsEarning:
+deliveredServices.transactions
+->select( oclIsTypeOf( Earning ) ).points->sum() < 10,000
+2.7
+/* the following invariant states that the maximum number of points
+that may be earned by all services of a program partner is equal
+to 10,000
+*/ 
+context ProgramPartner inv totalPointsEarning:
+deliveredServices.transactions -- all transactions
+->select( oclIsTypeOf( Earning ) ) -- select earning ones
+.points->sum() -- sum all points
+< 10,000 -- sum smaller than 10,000
+2.8
+context CustomerCard inv : let correctDate : Boolean =
+self.validFrom.isBefore(Date::now) and
+self.goodThru.isAfter(Date::now) in if valid then
+correctDate = false
+else
+correctDate = true
+endif
+
+
