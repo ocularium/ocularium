@@ -58,6 +58,9 @@ derive : owner.title.concat(' ').concat(owner.name)
 context ocularium::examples::royalloyal::Service::upgradePointsEarned(amount: Integer): void
 post : calcPoints() = calcPoints@pre() + amount
 
+context LoyaltyAccount 
+def : turnover : Real = transactions.amount->sum()
+
 context ocularium::examples::royalloyal::LoyaltyAccount::points
 init : 0
 
@@ -72,4 +75,6 @@ def : getCurrentLevelName() : String = currentLevel.name
 
 context ocularium::examples::royalloyal::Membership
 inv levelAndColor: currentLevel.name = 'Silver' implies card.color = Color::silver and currentLevel.name = 'Gold' implies card.color = Color::gold
+
+
 
