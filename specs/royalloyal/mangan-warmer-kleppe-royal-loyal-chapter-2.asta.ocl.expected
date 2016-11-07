@@ -19,7 +19,7 @@ inv firstLevel: levels->first().name = 'Silver'
 context ocularium::examples::royalloyal::LoyaltyProgram::getServices(): Set
 body : partners.deliveredServices->asSet()
 
-context ocularium::examples::royalloyal::LoyaltyProgram::getServices(pp: ProgramPartner): void
+context ocularium::examples::royalloyal::LoyaltyProgram::getServices(pp: ProgramPartner): Set
 body : if partners->includes(pp) then pp.deliveredServices else Set endif
 
 context ocularium::examples::royalloyal::Customer
@@ -50,7 +50,7 @@ context ocularium::examples::royalloyal::CustomerCard
 inv : let correctDate : Boolean = self.validFrom.isBefore(Date::now) and self.goodThru.isAfter(Date::now) in if valid then correctDate = false else correctDate = true endif
 
 context ocularium::examples::royalloyal::CustomerCard::valid
-init : 0
+init : true
 
 context ocularium::examples::royalloyal::CustomerCard::printedName
 derive : owner.title.concat(' ').concat(owner.name)
