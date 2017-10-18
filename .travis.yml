@@ -8,6 +8,6 @@ before_install:
   - brew cask install astah-community
   - curl -O http://cdn.change-vision.com/files/astah-professional-7_1_0-f2c212.zip
   - unzip astah*.zip
-  - cd astah-professional*
+  - cd astah-professional/
   - ls -la
 script: mvn test -PCommunity -f ./simpleocl/pom.xml
