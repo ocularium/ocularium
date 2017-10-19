@@ -26,6 +26,8 @@ import java.awt.Component;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -47,6 +49,9 @@ import ocularium.internal.OculariumFacade;
  */
 public class ImportOCLAction implements IPluginActionDelegate {
 
+    private static final Logger LOGGER = Logger.getLogger(ImportOCLAction.class.getName());
+
+	
 	/**
 	 * 
 	 */
@@ -72,11 +77,11 @@ public class ImportOCLAction implements IPluginActionDelegate {
 				JOptionPane.showMessageDialog(window.getParent(), "Import OCL Completed!");
 			}
 		} catch (ProjectNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);			
 			String message = "Project is not opened.Please open the project or create new project.";
 			JOptionPane.showMessageDialog(window.getParent(), message, "Warning", JOptionPane.WARNING_MESSAGE);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);			
 			JOptionPane.showMessageDialog(window.getParent(), "Unexpected error has occurred.", "Alert",
 					JOptionPane.ERROR_MESSAGE);
 			throw new UnExpectedException();
