@@ -59,7 +59,9 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  */
 public class OculariumFacade {
 
-	
+	/**
+	 * 
+	 */
     private static final Logger LOGGER = Logger.getLogger(OculariumFacade.class.getName());
 	
 	/**
@@ -94,11 +96,9 @@ public class OculariumFacade {
 		try {
 			getConstrainedClasses0(project, classList);
 		} catch (ClassNotFoundException e) {
-			//e.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Exception occur", e);				
+			LOGGER.log(Level.SEVERE, "ClassNotFoundException occur", e);				
 		} catch (ProjectNotFoundException e) {
-			//e.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Exception occur", e);		
+			LOGGER.log(Level.SEVERE, "ProjectNotFoundException occur", e);		
 		}
 
 		assert project != null;
@@ -180,13 +180,9 @@ public class OculariumFacade {
 		try {
 			getOclConstraints0(project, classeList);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Exception occur", e);	
+			LOGGER.log(Level.SEVERE, "ClassNotFoundException occur", e);	
 		} catch (ProjectNotFoundException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Exception occur", e);	
+			LOGGER.log(Level.SEVERE, "ProjectNotFoundException occur", e);	
 		}
 
 		assert project != null;
@@ -214,7 +210,6 @@ public class OculariumFacade {
 				getOclConstraints0(ownedNamedElement, constraintList);
 			}
 		} else if (element instanceof IClass) {
-			//
 			IClass c = (IClass) element;
 
 			IConstraint[] ccs = c.getConstraints();
@@ -295,22 +290,22 @@ public class OculariumFacade {
 
 		BufferedReader br = new BufferedReader(input);
 
-		String firstLine;
+		String contextLine;
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 
-		while ((firstLine = br.readLine()) != null) {
-			firstLine = firstLine.trim();
-			if (firstLine.startsWith("--")) {
+		while ((contextLine = br.readLine()) != null) {
+			contextLine = contextLine.trim();
+			if (contextLine.startsWith("--")) {
 				continue;
 			}
-			if (firstLine.isEmpty()) {
+			if (contextLine.isEmpty()) {
 				continue;
 			}
 
-			String secondLine = br.readLine();
+			String constraintLine = br.readLine();
 
-			System.out.printf("firstLine:[%s]\n", firstLine);
-			String[] elementSplit = firstLine.split("\\s*context\\s+");
+			System.out.printf("context:[%s]\n", contextLine);
+			String[] elementSplit = contextLine.split("\\s*context\\s+");
 
 			System.out.printf("elementSplit:[%s]\n", Arrays.toString(elementSplit));
 
@@ -347,20 +342,26 @@ public class OculariumFacade {
 			
 			assert elements.length > 0; // At least one element was found
 			
-			if (elements.length == 1) {
-				classA = elements[0];
-			} else {
-				// more than one element was found, it may be and operation
-				classA = elements[0];
-			}
-			System.out.println(firstLine);
-			System.out.println(secondLine);
+			classA = elements[0];
 
-			if (secondLine.startsWith("pre")) {
-				basicModelEditor.createConstraint(classA, "PRECONDITION: " + secondLine);
+			// TODO: Select exact fit based on parameter types
+			// 
+			//for (INamedElement iNamedElement : elements) {
+				
+				//classA = elements[0];
+				
+			//}
+			
+			
+			System.out.println(contextLine);
+			System.out.println(constraintLine);
+
+			if (constraintLine.startsWith("pre")) {
+				basicModelEditor.createConstraint(classA, "PRECONDITION: " + constraintLine);
 			} else {
-				basicModelEditor.createConstraint(classA, secondLine);
+				basicModelEditor.createConstraint(classA, constraintLine);
 			}
+			
 			TransactionManager.endTransaction();
 
 		}

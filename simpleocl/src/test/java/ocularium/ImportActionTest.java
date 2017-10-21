@@ -91,52 +91,48 @@ public class ImportActionTest {
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(WK_C2_FILE, true, false, true);
-		INamedElement[] elements = prjAccessor.findElements(IClass.class,
-				"LoyaltyProgram");
+		INamedElement[] elements = prjAccessor.findElements(IClass.class, "LoyaltyProgram");
 		prjAccessor.close();
 		assertEquals(1, elements.length);
 		assertEquals("LoyaltyProgram", elements[0].getName());
-		
-	}	
-	
+
+	}
+
 	@Test
 	public void testSanityCheckFindOperationByName() throws Exception {
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(WK_C2_FILE, true, false, true);
-		INamedElement[] elements = prjAccessor.findElements(IOperation.class,
-				"getServices");
+		INamedElement[] elements = prjAccessor.findElements(IOperation.class, "getServices");
 		prjAccessor.close();
 		assertEquals(2, elements.length);
 		assertEquals("getServices", elements[0].getName());
-		assertEquals("getServices", elements[1].getName());		
-	}	
-	
+		assertEquals("getServices", elements[1].getName());
+	}
+
 	@Test
 	public void testSanityCheckFindOperationByNameAsNamed() throws Exception {
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(WK_C2_FILE, true, false, true);
-		INamedElement[] elements = prjAccessor.findElements(INamedElement.class,
-				"getServices");
+		INamedElement[] elements = prjAccessor.findElements(INamedElement.class, "getServices");
 		prjAccessor.close();
 		assertEquals(2, elements.length);
 		assertEquals("getServices", elements[0].getName());
-		assertEquals("getServices", elements[1].getName());		
-	}	
-	
+		assertEquals("getServices", elements[1].getName());
+	}
+
 	@Test
 	public void testSanityCheckFindClassByNameAsNamed() throws Exception {
 
 		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 		prjAccessor.open(WK_C2_FILE, true, false, true);
-		INamedElement[] elements = prjAccessor.findElements(INamedElement.class,
-				"LoyaltyProgram");
+		INamedElement[] elements = prjAccessor.findElements(INamedElement.class, "LoyaltyProgram");
 		prjAccessor.close();
 		assertEquals(1, elements.length);
 		assertEquals("LoyaltyProgram", elements[0].getName());
-	}	
-	
+	}
+
 	@Test
 	public void testCreateInvariant() throws Exception {
 
@@ -211,6 +207,13 @@ public class ImportActionTest {
 		assertEquals(0, actual.size());
 	}
 
+	/**
+	 * getServices is a polymorphic operation and its name resolves to two different operations.
+	 * Proper implementation must check operation signature in order to select the correct operation.
+	 * In the case of more than one signature, parameter type must be checked.
+	 * 
+	 * @throws Exception
+	 */
 	@Test
 	public void testWkHasPolimorphicElement() throws Exception {
 		ProjectAccessor prjAccessor = null;
@@ -221,7 +224,8 @@ public class ImportActionTest {
 			IModel project = prjAccessor.getProject();
 			OculariumFacade f = new OculariumFacade(project);
 			r = new StringReader(
-					"context ocularium::examples::royalloyal::LoyaltyProgram::getServices(): Set \n body : partners.deliveredServices->asSet()");
+					"context ocularium::examples::royalloyal::LoyaltyProgram::getServices(): Set"
+					+ "\n body : partners.deliveredServices->asSet()");
 			f.importOCL(r);
 			List<IClass> actual = f.getConstrainedClasses();
 			assertEquals(1, actual.size());

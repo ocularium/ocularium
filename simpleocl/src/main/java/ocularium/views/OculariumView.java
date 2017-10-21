@@ -73,6 +73,9 @@ import ocularium.internal.OculariumFacade;
  */
 public class OculariumView extends JPanel implements IPluginExtraTabView {
 
+	/**
+	 * 
+	 */
     private static final Logger LOGGER = Logger.getLogger(OculariumView.class.getName());
 	
 	/**
@@ -102,7 +105,6 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 						IElement element = c.getConstrainedElement()[0];
 						projectViewManager.showInStructureTree(element);
 					} catch (Exception ex) {
-						//ex.printStackTrace();
 						LOGGER.log(Level.SEVERE, "Exception occur", ex);							
 					}
 				}
@@ -182,13 +184,13 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 			ProjectAccessor projectAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 			projectAccessor.addProjectEventListener(new OculariumProjectListener());
 		} catch (ClassNotFoundException e) {
-			//e.printStackTrace();
 			LOGGER.log(Level.SEVERE, "Exception occur", e);	
 		}
 	}
 
 	@Override
 	public void addSelectionListener(ISelectionListener listener) {
+		// No action needed at this time
 	}
 
 	@Override
@@ -217,7 +219,7 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 	 * 
 	 */
 	public void deactivated() {
-
+		// No action needed at this time
 	}
 
 	/**
@@ -235,11 +237,9 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 			dm.setData(cs);
 
 		} catch (ClassNotFoundException e1) {
-			//e1.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Exception occur", e1);	
+			LOGGER.log(Level.SEVERE, "ClassNotFoundException during refresh", e1);	
 		} catch (ProjectNotFoundException e1) {
-			//e1.printStackTrace();
-			LOGGER.log(Level.SEVERE, "Exception occur", e1);	
+			LOGGER.log(Level.SEVERE, "ProjectNotFoundException during refresh", e1);	
 		}
 	}
 }

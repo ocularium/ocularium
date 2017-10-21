@@ -26,7 +26,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**
- * Astah activator.
+ * OSGi bundle activator.
  * 
  * @author marco.mangan@gmail.com
  *
@@ -37,12 +37,14 @@ public class Activator implements BundleActivator {
 	 * 
 	 */
 	public void start(BundleContext context) {
+		// There is no need to write bundle activator start code at this time
 	}
 
 	/**
 	 * 
 	 */
 	public void stop(BundleContext context) {
+		// There is no need to write bundle activator stop code at this time		
 	}
 
 }

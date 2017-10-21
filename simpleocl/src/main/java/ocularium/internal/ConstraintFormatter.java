@@ -33,8 +33,6 @@ import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IParameter;
 
-import ocularium.actions.ImportOCLAction;
-
 /**
  * A constraint formatter.
  * 
@@ -45,9 +43,11 @@ import ocularium.actions.ImportOCLAction;
  */
 public class ConstraintFormatter {
 
-    private static final Logger LOGGER = Logger.getLogger(ConstraintFormatter.class.getName());
-	
-	
+	/**
+	 * 
+	 */
+	private static final Logger LOGGER = Logger.getLogger(ConstraintFormatter.class.getName());
+
 	/**
 	 * 
 	 */
@@ -69,7 +69,7 @@ public class ConstraintFormatter {
 	@Override
 	public String toString() {
 		assert iConstraint != null;
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		try {
 			sb.append("context ");
 			sb.append(getContext());
@@ -77,8 +77,7 @@ public class ConstraintFormatter {
 			sb.append(getSpecification());
 			sb.append("\n");
 		} catch (Exception e) {
-			LOGGER.log(Level.SEVERE, "Exception occur", e);				
-			//e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);
 		}
 		assert iConstraint != null;
 		return sb.toString();
@@ -104,7 +103,7 @@ public class ConstraintFormatter {
 	private static String getFullName(IClass iClass) {
 		assert iClass != null;
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		IElement owner = iClass.getOwner();
 		while (owner != null && owner instanceof INamedElement && owner.getOwner() != null) {
 			sb.insert(0, ((INamedElement) owner).getName() + "::");
@@ -116,68 +115,94 @@ public class ConstraintFormatter {
 
 	/**
 	 * 
+	 */
+	public StringBuilder getContext(IAttribute e) {
+		StringBuilder sb = new StringBuilder();
+
+		IElement owner = e.getOwner();
+		if (owner instanceof IClass) {
+			IClass cl = (IClass) owner;
+			sb.append(getFullName(cl));
+		} else {
+			sb.append(owner.toString());
+		}
+		sb.append("::");
+		sb.append(e.toString());
+		return sb;
+	}
+
+	/**
+	 * 
+	 */
+	public StringBuilder getContext(IOperation op) {
+		StringBuilder sb = new StringBuilder();
+
+		IElement owner = op.getOwner();
+		if (owner instanceof IClass) {
+			IClass cl = (IClass) owner;
+			sb.append(getFullName(cl));
+		} else {
+			sb.append(owner.toString());
+		}
+		sb.append("::");
+		sb.append(op.toString());
+		sb.append("(");
+		IParameter[] ps = op.getParameters();
+
+		boolean firstParam = true;
+
+		for (IParameter iParameter : ps) {
+			if (!firstParam) {
+				sb.append(", ");
+			}
+			firstParam = false;
+			String paramName = iParameter.getName();
+			String paramType = iParameter.getType().toString();
+			sb.append(paramName == null ? "" : paramName);
+			sb.append(paramType == null ? "" : ": " + paramType);
+
+		}
+		sb.append(")");
+
+		String returnType = op.getReturnType().toString();
+
+		sb.append(returnType == null ? "" : ": " + returnType);
+		return sb;
+	}
+
+	/**
+	 * 
+	 */
+	public StringBuilder getContext(IClass cl) {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(getFullName(cl));
+		return sb;
+	}
+
+	/**
+	 * 
+	 */
+	public StringBuilder getContext(IElement e) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(e.toString());
+		return sb;
+	}
+
+	/**
+	 * 
 	 * @return
 	 */
 	public String getContext() {
 		assert iConstraint != null;
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		IElement[] ces = iConstraint.getConstrainedElement();
 		assert ces.length == 1;
 		IElement e = ces[0];
-		if (e instanceof IAttribute) {
-			IElement owner = e.getOwner();
-			if (owner instanceof IClass) {
-				IClass cl = (IClass) owner;
-				sb.append(getFullName(cl));
-			} else {
-				sb.append(owner.toString());
-			}
-			// output.write(owner.toString());
-			sb.append("::");
-			sb.append(e.toString());
-		} else if (e instanceof IOperation) {
-			IOperation op = (IOperation) e;
+		sb.append(getContext(e));
 
-			IElement owner = op.getOwner();
-			if (owner instanceof IClass) {
-				IClass cl = (IClass) owner;
-				sb.append(getFullName(cl));
-			} else {
-				sb.append(owner.toString());
-			}
-			// output.write(owner.toString());
-			sb.append("::");
-			sb.append(op.toString());
-			sb.append("(");
-			IParameter[] ps = op.getParameters();
-
-			boolean firstParam = true;
-
-			for (IParameter iParameter : ps) {
-				if (!firstParam) {
-					sb.append(", ");
-				}
-				String paramName = iParameter.getName().toString();
-				String paramType = iParameter.getType().toString();
-				sb.append(paramName == null ? "" : paramName);
-				sb.append(paramType == null ? "" : ": " + paramType);
-
-			}
-			sb.append(")");
-
-			String returnType = op.getReturnType().toString();
-
-			sb.append(returnType == null ? "" : ": " + returnType);
-		} else {
-			if (e instanceof IClass) {
-				IClass cl = (IClass) e;
-				sb.append(getFullName(cl));
-			} else {
-				sb.append(e.toString());
-			}
-		}
 		return sb.toString();
 	}
 
@@ -188,7 +213,7 @@ public class ConstraintFormatter {
 	public String getSpecification() {
 		assert iConstraint != null;
 
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		String spec = iConstraint.getSpecification();
 		if (spec.startsWith("BODYCONDITION:")) {
 			spec = spec.substring("BODYCONDITION:".length());
@@ -209,7 +234,7 @@ public class ConstraintFormatter {
 	public boolean isOcl() {
 		assert iConstraint != null;
 
-		String starts[] = { "inv", "def", "init", "derive", "pre", "post", "body" };
+		String[] starts = { "inv", "def", "init", "derive", "pre", "post", "body" };
 		String spec = getSpecification().trim().toLowerCase();
 		for (String s : starts) {
 			if (spec.startsWith(s))
