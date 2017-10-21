@@ -1,9 +1,15 @@
 language: objective-c  # Do tests on OS X
+
+addons:
+  sonarcloud:
+    organization: "masmangan-github"
+    token:
+      secure: "vW9yLdexosero9PkJ6AhoSq4g+dpY7CeQOwFI7i2Kpffo+yaMZjDhhwSnjfpa1SjXSecxADeUqhI3pHl+Yz+bG/gIWziyPi9Zz7JXc7xiGx6BTbwKIrUVkgPjQkg4M7+dP9pvpOaji+YzGKBxazBcKNbEw3Vj1qL2PSIFAeEK0kh164rqms/+DT2M76koysJprUmuppyUOic5b9irykJSdcyKsUHzeg4Ii43cQUOVri6gbJtx8MamSNMYRvY+OcVuU3c7FLPuQV93tJfsHTcS6Zn1UyZVch+spkgJ4I7INVeUBDzKfjY+HsQvkglaWnO2htX6nO9JHSTHl5IpZNDRE8wbqNfvYg83kq5bLZdna/4hve91d6NTpgfB8W2IudbzVEoUVNrHiM8WVORkRpuyz1BuEAuGz2m/SehufiunFPrpN0DTVhjWonh9V6h2tSSHdXfTmrskU3/gMCL4Mxix/vel1+11pjx/TNklZQqT0VODVhgTQZ7GyA0P4I9j46gsSF2iK+HcwKlLqqc2RzbXX13ln971J9CvJAa/VkxIZOHK3Aoqhzhqcv3btW5pobc47rx3TpvDMjoCPRSWMHkwo+jmXt2S2jEDtqzsEWUfTPGy1D2R6vWVvYC7eK4FLFbiLhZNX6ExlUximyw7dfO5/uKQIHb+QwtAnXveHlzEdo="
 env:
   global:
     - SKIP_IMAGE_CHECK=1
 before_install:
-  - brew update
+#  - brew update
   - brew cask install java
   - brew cask install astah-community
 #  - curl -O http://cdn.change-vision.com/files/astah-professional-7_1_0-f2c212.zip
