@@ -27,6 +27,8 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -71,6 +73,8 @@ import ocularium.internal.OculariumFacade;
  */
 public class OculariumView extends JPanel implements IPluginExtraTabView {
 
+    private static final Logger LOGGER = Logger.getLogger(OculariumView.class.getName());
+	
 	/**
 	 * Listen from table selections.
 	 * 
@@ -98,7 +102,8 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 						IElement element = c.getConstrainedElement()[0];
 						projectViewManager.showInStructureTree(element);
 					} catch (Exception ex) {
-						ex.printStackTrace();
+						//ex.printStackTrace();
+						LOGGER.log(Level.SEVERE, "Exception occur", ex);							
 					}
 				}
 			}
@@ -177,7 +182,8 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 			ProjectAccessor projectAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
 			projectAccessor.addProjectEventListener(new OculariumProjectListener());
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);	
 		}
 	}
 
@@ -229,9 +235,11 @@ public class OculariumView extends JPanel implements IPluginExtraTabView {
 			dm.setData(cs);
 
 		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e1);	
 		} catch (ProjectNotFoundException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e1);	
 		}
 	}
 }

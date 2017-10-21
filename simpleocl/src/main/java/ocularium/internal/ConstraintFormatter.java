@@ -22,6 +22,9 @@
  */
 package ocularium.internal;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.change_vision.jude.api.inf.model.IAttribute;
 import com.change_vision.jude.api.inf.model.IClass;
 import com.change_vision.jude.api.inf.model.IConstraint;
@@ -29,6 +32,8 @@ import com.change_vision.jude.api.inf.model.IElement;
 import com.change_vision.jude.api.inf.model.INamedElement;
 import com.change_vision.jude.api.inf.model.IOperation;
 import com.change_vision.jude.api.inf.model.IParameter;
+
+import ocularium.actions.ImportOCLAction;
 
 /**
  * A constraint formatter.
@@ -40,6 +45,9 @@ import com.change_vision.jude.api.inf.model.IParameter;
  */
 public class ConstraintFormatter {
 
+    private static final Logger LOGGER = Logger.getLogger(ConstraintFormatter.class.getName());
+	
+	
 	/**
 	 * 
 	 */
@@ -69,7 +77,8 @@ public class ConstraintFormatter {
 			sb.append(getSpecification());
 			sb.append("\n");
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);				
+			//e.printStackTrace();
 		}
 		assert iConstraint != null;
 		return sb.toString();

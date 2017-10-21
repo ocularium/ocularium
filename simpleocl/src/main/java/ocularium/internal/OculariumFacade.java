@@ -29,6 +29,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.change_vision.jude.api.inf.AstahAPI;
 import com.change_vision.jude.api.inf.editor.BasicModelEditor;
@@ -57,6 +59,9 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  */
 public class OculariumFacade {
 
+	
+    private static final Logger LOGGER = Logger.getLogger(OculariumFacade.class.getName());
+	
 	/**
 	 * An Astah project containing UML elements and OCL constraints.
 	 */
@@ -89,9 +94,11 @@ public class OculariumFacade {
 		try {
 			getConstrainedClasses0(project, classList);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);				
 		} catch (ProjectNotFoundException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);		
 		}
 
 		assert project != null;
@@ -174,10 +181,12 @@ public class OculariumFacade {
 			getOclConstraints0(project, classeList);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);	
 		} catch (ProjectNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Exception occur", e);	
 		}
 
 		assert project != null;
