@@ -1,0 +1,26 @@
+model Projects
+-- (excerpt)
+-- from USE/OCL 
+
+class Company
+operations
+  fire(w : Worker) 
+    begin
+      delete (self,w) from Employs;
+      for p in w.projects do
+        delete (p,w) from Member;
+        if not p.missingQualifications()->isEmpty then
+          p.status := #suspended
+        end
+      end
+    end
+end
+
+context Company
+    pre  OnlyEmployeesCanBeFired: employees->includes(w)
+context Company
+    post Fired: employees->excludes(w)
+context Company
+    post ProjectsStillHappy: projects->forAll(p| p.status = #active implies p.missingQualifications()->isEmpty)
+context Company
+    post NoEmployeeOverloaded: employees->forAll(e|not e.isOverloaded())
