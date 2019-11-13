@@ -60,4 +60,17 @@ public class ExportUseActionTest {
 		assertEquals("Company", actual.get(0).getName());
 	}
 
+	@Test
+	public void testCompanyHasEnoughEmployeesExportUseToString() throws Exception {
+		ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
+		prjAccessor.open(COMPANY_FILE, true, false, true);
+		IModel project = prjAccessor.getProject();
+		OculariumFacade f = new OculariumFacade(project);
+		Writer actual = new StringWriter();
+		f.exportUse0(actual);
+		actual.close();
+		prjAccessor.close();
+		assertEquals("class Company\n", actual.toString());
+	}	
+	
 }

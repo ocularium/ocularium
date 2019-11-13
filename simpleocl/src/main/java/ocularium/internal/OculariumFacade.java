@@ -385,6 +385,13 @@ public class OculariumFacade {
 		exportOCL0(output);
 	}
 
+	
+	public void exportUse0(Writer output) throws IOException {
+		assert project != null;
+		assert output != null;
+
+	}
+	
 	/**
 	 * 
 	 * @param output
