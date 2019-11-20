@@ -390,6 +390,13 @@ public class OculariumFacade {
 		assert project != null;
 		assert output != null;
 
+List<IClass> classes = getConstrainedClasses();	
+for (IClass iClass : classes) {
+	output.write("class ");
+ 	output.write(iClass.getName());
+	output.write("\n");
+}
+
 	}
 	
 	/**
